@@ -53,7 +53,7 @@ RSpec.describe "As a visitor" do
     expect(current_path).to eq("/register")
 
     expect(User.count).to eq(0)
-    expect(page).to have_content("Error: Please fill in all required information, ensuring your password and confirmation match")
+    expect(page).to have_content("Zip can't be blank")
 
   end
 
@@ -80,11 +80,13 @@ RSpec.describe "As a visitor" do
     expect(current_path).to eq("/register")
 
     expect(User.count).to eq(0)
-    expect(page).to have_content("Error: Please fill in all required information, ensuring your password and confirmation match")
+    expect(page).to have_content("Password confirmation doesn't match Password")
 
   end
 
   it "does not accept duplicate email addresses" do
+    user1 = User.create!(name: "Drew", address: "123", city: "Denver", state: "CO", zip: "80222", email: "blah@gmail.com", password: "123", password_confirmation: "123")
+
     visit '/merchants'
 
     within '.topnav' do
@@ -98,16 +100,22 @@ RSpec.describe "As a visitor" do
     fill_in :city, with: "Denver"
     fill_in :state, with: "CO"
     fill_in :zip, with: "80444"
-    fill_in :email, with: "us@turing.io"
-    fill_in :password, with: "passsword"
+    fill_in :email, with: "blah@gmail.com"
+    fill_in :password, with: "password"
     fill_in :password_confirmation, with: "password"
 
     click_on "Submit"
 
+    expect(page).to have_content("Garrett James Drew-Chris")
+    expect(page).to have_content("123 Main St.")
+    expect(page).to have_content("Denver")
+    expect(page).to have_content("CO")
+    expect(page).to have_content("80444")
+
+
     expect(current_path).to eq("/register")
 
-    expect(User.count).to eq(0)
-    expect(page).to have_content("Error: Please fill in all required information, ensuring your password and confirmation match")
+    expect(page).to have_content("Email has already been taken")
 
   end
 end
