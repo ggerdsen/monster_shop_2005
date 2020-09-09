@@ -34,7 +34,6 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link('Login')
       end
 
-      expect(current_path).to eq('/login')
     end
 
     it "I can see a cart indicator on all pages" do
