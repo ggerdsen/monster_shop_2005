@@ -83,8 +83,8 @@ RSpec.describe "As a visitor" do
     expect(page).to have_content("Password confirmation doesn't match Password")
 
   end
-  # Skipping this test as it is not repopulating the form but only showing the flash message. 
-  xit "does not accept duplicate email addresses" do
+  # Skipping this test as it is not repopulating the form but only showing the flash message.
+  it "does not accept duplicate email addresses" do
     user1 = User.create!(name: "Drew", address: "123", city: "Denver", state: "CO", zip: "80222", email: "blah@gmail.com", password: "123", password_confirmation: "123")
 
     visit '/merchants'
@@ -106,11 +106,17 @@ RSpec.describe "As a visitor" do
 
     click_on "Submit"
 
-    expect(page).to have_content("Garrett James Drew-Chris")
-    expect(page).to have_content("123 Main St.")
-    expect(page).to have_content("Denver")
-    expect(page).to have_content("CO")
-    expect(page).to have_content("80444")
+    expect(page).to have_field(:name, with: 'Garrett James Drew-Chris')
+    expect(page).to have_field(:address, with: '123 Main St.')
+    expect(page).to have_field(:city, with: 'Denver')
+    expect(page).to have_field(:state, with: 'CO')
+    expect(page).to have_field(:zip, with: '80444')
+
+    # #expect(page).to have_content("Garrett James Drew-Chris")
+    # expect(page).to have_content("123 Main St.")
+    # expect(page).to have_content("Denver")
+    # expect(page).to have_content("CO")
+    # expect(page).to have_content("80444")
 
 
     expect(current_path).to eq("/register")
