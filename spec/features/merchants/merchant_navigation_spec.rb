@@ -20,7 +20,6 @@ RSpec.describe "As a merchant employee I see the same links as a regular user" d
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@employee)
 
     visit "/"
-    save_and_open_page
 
     expect(page).to have_link("Home")
     expect(page).to have_link("All Merchants")
