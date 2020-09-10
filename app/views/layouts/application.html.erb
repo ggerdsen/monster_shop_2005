@@ -20,7 +20,7 @@
       <%= link_to "Profile", "/profile" %>
       <%= link_to "Logout", "/logout", method: :delete %>
 
-    <% elsif current_employee? %>
+    <% elsif current_merchant? %>
       <%= link_to "Merchant Dashboard", "/merchant/dashboard" %>
       <%= link_to "Profile", "/profile" %>
       <%= link_to "Logout", "/logout", method: :delete %>

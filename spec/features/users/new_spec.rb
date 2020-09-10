@@ -21,9 +21,8 @@ RSpec.describe "As a visitor" do
     fill_in :password_confirmation, with: "password"
 
     click_on "Submit"
-
+    save_and_open_page
     expect(current_path).to eq("/profile")
-
     expect(User.count).to eq(1)
     expect(page).to have_content("You are now registered and logged in")
     expect(page).to have_content("Garrett James Drew-Chris")

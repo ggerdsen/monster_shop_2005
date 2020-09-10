@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  namespace :admin do
+    get '/', to: 'dashboard#index'
+  end
+
+  namespace :merchant do
+    get '/', to: "dashboard#index"
+  end
+
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
   get "/merchants/:id", to: "merchants#show"
@@ -40,4 +48,5 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
 
   get "/", to: "home#index"
+
 end
