@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
   end
 
+  namespace :merchant do
+    get '/', to: "dashboard#index"
+  end
+
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
   get "/merchants/:id", to: "merchants#show"
@@ -45,8 +49,4 @@ Rails.application.routes.draw do
 
   get "/", to: "home#index"
 
-  namespace :merchant do
-    #only merchant users will be able to reach this resource
-    get '/', to: "dashboard#index"
-  end
 end
