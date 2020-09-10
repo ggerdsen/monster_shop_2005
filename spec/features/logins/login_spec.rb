@@ -107,22 +107,80 @@ RSpec.describe 'As a visitor', type: :feature do
 
     end
   end
+  
+  describe "As a logged in user" do
+    it "When logged in as Admin I take the /login path, i am notified that i am logged in and brought to the appropriate page for my user type" do
+      visit "/merchants"
+      
+      within '.topnav' do
+        click_on "Login"
+      end
+      
+      expect(current_path).to eq("/login")
+      
+      fill_in :email, with: "#{@admin_user.email}"
+      fill_in :password, with: "#{@admin_user.password}"
+      
+      click_on "Submit"
+      
+      expect(current_path).to eq("/admin")
+      
+      visit "/login"
+      
+      expect(current_path).to eq("/admin")
+      
+      expect(page).to have_content("You are already logged in.")
+
+    end
+    
+    it "When logged in as Merchant I take the /login path, i am notified that i am logged in and brought to the appropriate page for my user type" do
+      visit "/merchants"
+      
+      within '.topnav' do
+        click_on "Login"
+      end
+      
+      expect(current_path).to eq("/login")
+      
+      fill_in :email, with: "#{@merchant_user.email}"
+      fill_in :password, with: "#{@merchant_user.password}"
+      
+      click_on "Submit"
+      
+      expect(current_path).to eq("/merchant")
+      
+      visit "/login"
+      
+      expect(current_path).to eq("/merchant")
+      
+      expect(page).to have_content("You are already logged in.")
+
+    end
+    
+    it "When logged in as Default User I take the /login path, i am notified that i am logged in and brought to the appropriate page for my user type" do
+      visit "/merchants"
+      
+      within '.topnav' do
+        click_on "Login"
+      end
+      
+      expect(current_path).to eq("/login")
+      
+      fill_in :email, with: "#{@regular_user.email}"
+      fill_in :password, with: "#{@regular_user.password}"
+      
+      click_on "Submit"
+      
+      expect(current_path).to eq("/profile")
+      
+      visit "/login"
+      
+      expect(current_path).to eq("/profile")
+      
+      expect(page).to have_content("You are already logged in.")
+
+    end
+  end
 end
-
-
-
-#
-# User Story 14, User cannot log in with bad credentials
-#
-# As a visitor
-# When I visit the login page ("/login")
-# And I submit invalid information
-# Then I am redirected to the login page
-# And I see a flash message that tells me that my credentials were incorrect
-# I am NOT told whether it was my email or password that was incorrect
-
-
-
-
 
 
