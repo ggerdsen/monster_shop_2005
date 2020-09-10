@@ -34,4 +34,12 @@ class SessionsController<ApplicationController
       render :new
     end
   end
+  
+  def destroy
+    session.delete(:user_id)
+    session.delete(:cart)
+    flash[:notice] = "You have been logged out"
+    redirect_to "/"
+  end
+  
 end
