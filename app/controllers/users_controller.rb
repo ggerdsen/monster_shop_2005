@@ -18,9 +18,7 @@ class  UsersController < ApplicationController
 
   def show
     render file: "/public/404" unless current_user
-    if current_user
-      @user = User.find(session[:user_id])
-    end
+    @user = current_user
   end
 
   private
