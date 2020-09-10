@@ -5,5 +5,5 @@ class User <ApplicationRecord
   validates_presence_of :password, require: true
   validates_presence_of :name, :address, :city, :state, :zip
 
-  enum role: %w(default employee admin)
+  enum role: %w(default merchant admin)
 end

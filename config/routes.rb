@@ -40,4 +40,9 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
 
   get "/", to: "home#index"
+
+  namespace :merchant do
+    #only merchant users will be able to reach this resource
+    get '/', to: "dashboard#index"
+  end
 end
