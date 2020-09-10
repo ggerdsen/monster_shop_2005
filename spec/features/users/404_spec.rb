@@ -14,7 +14,7 @@ describe "as default user" do
   it 'does not allow default user to see admin dashboard index' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      visit "/admin/dashboard"
+      visit "/admin"
 save_and_open_page
       #expect(page).to_not have_link("Home")
       expect(page).to have_content("The page you were looking for doesn't exist.")

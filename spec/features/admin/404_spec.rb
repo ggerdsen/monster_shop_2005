@@ -14,7 +14,7 @@ describe "as an admin" do
   it 'does not allow default user to see merchant path or cart path' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      visit "/merchant/dashboard"
+      visit "/merchant"
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
