@@ -11,18 +11,18 @@ class SessionsController<ApplicationController
         flash[:success] = "Success, you are now logged in as #{user.name}"
         if current_admin?
           redirect_to '/admin'
-        elsif current_employee?
+        elsif current_merchant?
           redirect_to "/merchant"
         else
           redirect_to "/profile"
         end
       else
-        flash[:error] = "Your password is incorrect, try again."
+        flash[:error] = "Your login credentials are incorrect"
         render :new
       end
     else
-      flash[:error] = "This is not an email we have a record of, please register."
-      redirect_to "/register"
+      flash[:error] = "Your login credentials are incorrect"
+      render :new
     end
   end
 end
