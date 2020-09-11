@@ -25,3 +25,17 @@
     </section>
     <% end %>
 </section>
+<section class="item_statistics">
+  <section id="most-popular-items">
+    <h3>Most Popular Items:</h3>
+    <% Item.most_popular_items.each do |item| %>
+      <li type="1"><%= link_to item.name, "/items/#{item.id}" %>: <%= item.total %> Purchased</li>
+    <% end %>
+  </section>
+  <section id="least-popular-items">
+    <h3>Least Popular Items:</h3>
+    <% Item.least_popular_items.each do |item| %>
+      <li type="1"><%= link_to item.name, "/items/#{item.id}" %>: <%= item.total %> Purchased</li>
+    <% end %>
+  </section>
+</section>
