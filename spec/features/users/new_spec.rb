@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "As a visitor" do
 
   it "I can register as a new user from a link in the nav bar" do
+    User.destroy_all
     visit '/merchants'
 
     within '.topnav' do
@@ -29,6 +30,7 @@ RSpec.describe "As a visitor" do
   end
 
   it "Returns me to form if registration form is missing details" do
+    User.destroy_all
     visit '/merchants'
 
     within '.topnav' do
@@ -56,6 +58,7 @@ RSpec.describe "As a visitor" do
   end
 
   it "Returns me to form if registration form is missing details" do
+    User.destroy_all
     visit '/merchants'
 
     within '.topnav' do
