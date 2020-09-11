@@ -1,1 +1,7 @@
-<h1><%= @user.name %></h1>
+
+  <h1><%= @user.name %></h1>
+  <h2><%= @user.email %></h2>
+  <p><%= @user.address %></p>
+  <p><%= @user.city + ", " + @user.state %></p>
+  <p><%= @user.zip %></p>
+  <p><%= link_to "Edit" %></p>
