@@ -19,8 +19,8 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@tire.merchant.name)
       expect(page).to have_link(@pull_toy.name)
       expect(page).to have_link(@pull_toy.merchant.name)
-      expect(page).to have_link(@dog_bone.name)
-      expect(page).to have_link(@dog_bone.merchant.name)
+      # expect(page).to have_link(@dog_bone.name)
+      # expect(page).to have_link(@dog_bone.merchant.name)
     end
 
     it "I can see a list of all of the items "do
@@ -47,15 +47,97 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
       end
 
-      within "#item-#{@dog_bone.id}" do
-        expect(page).to have_link(@dog_bone.name)
-        expect(page).to have_content(@dog_bone.description)
-        expect(page).to have_content("Price: $#{@dog_bone.price}")
-        expect(page).to have_content("Inactive")
-        expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
-        expect(page).to have_link(@brian.name)
-        expect(page).to have_css("img[src*='#{@dog_bone.image}']")
-      end
+      # within "#item-#{@dog_bone.id}" do
+      #   expect(page).to have_link(@dog_bone.name)
+      #   expect(page).to have_content(@dog_bone.description)
+      #   expect(page).to have_content("Price: $#{@dog_bone.price}")
+      #   expect(page).to have_content("Inactive")
+      #   expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
+      #   expect(page).to have_link(@brian.name)
+      #   expect(page).to have_css("img[src*='#{@dog_bone.image}']")
+      # end
+    end
+
+    it "As any kind of user in the system I see all items except disabled items" do
+      regular_user = User.create(name: "Jim Bob",
+                                 address: "2020 Whiskey River Blvd",
+                                 city: "Bamaville",
+                                 state: "AL",
+                                 zip: "33675",
+                                 email: "jimbobwoowoo@aol.com",
+                                 password: "merica4lyfe",
+                                 role: 0)
+
+      merchant_user = User.create(name: "Sales Bob",
+                                  address: "2020 Whiskey River Blvd",
+                                  city: "Bamaville",
+                                  state: "AL",
+                                  zip: "33675",
+                                  email: "salebobwoowoo@aol.com",
+                                  password: "mmerica4lyfe",
+                                  role: 1)
+
+      admin_user = User.create(name: "Admin Bob",
+                               address: "2020 Whiskey River Blvd",
+                               city: "Bamaville",
+                               state: "AL",
+                               zip: "33675",
+                               email: "adminbobwoowoo@aol.com",
+                               password: "america4lyfe",
+                               role: 2)
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+
+      expect(page).to have_no_link(@dog_bone.name)
+
+      visit '/login'
+
+      fill_in :email, with: regular_user.email
+      fill_in :password, with: regular_user.password
+
+      click_on 'Submit'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+
+      expect(page).to have_no_link(@dog_bone.name)
+
+      click_on 'Logout'
+
+      visit '/login'
+
+      fill_in :email, with: merchant_user.email
+      fill_in :password, with: merchant_user.password
+
+      click_on 'Submit'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+
+      expect(page).to have_no_link(@dog_bone.name)
+
+      click_on 'Logout'
+
+      visit '/login'
+
+      fill_in :email, with: admin_user.email
+      fill_in :password, with: admin_user.password
+
+      click_on 'Submit'
+
+      visit "/items"
+
+      expect(page).to have_link(@tire.name)
+      expect(page).to have_link(@pull_toy.name)
+
+      expect(page).to have_no_link(@dog_bone.name)
     end
   end
 end
