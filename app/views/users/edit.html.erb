@@ -1,6 +1,6 @@
 <h1> Please Fill In Each Form</h1>
 
-<%= form_tag '/profile', method: :update do %>
+<%= form_tag '/profile', method: :patch do %>
   <%= label_tag :name %>
   <%= text_field_tag :name, @user.name %>
   <%= label_tag :address%>

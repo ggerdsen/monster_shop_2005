@@ -31,6 +31,7 @@ RSpec.describe do
     fill_in :zip, with: '80102'
     fill_in :email, with: @regular_user.email
     fill_in :password, with: @regular_user.password
+    fill_in :password_confirmation, with: @regular_user.password
 
     click_on "Submit"
 
@@ -89,5 +90,5 @@ RSpec.describe do
     expect(page).to have_content("Password confirmation doesn't match Password")
 
   end
-  
+
 end
