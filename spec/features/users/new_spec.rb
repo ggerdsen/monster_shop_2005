@@ -125,4 +125,33 @@ RSpec.describe "As a visitor" do
     expect(page).to have_content("Email has already been taken")
 
   end
+
+  it "Can see a user page with profile" do
+
+    @regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+
+    visit "/"
+
+    within ".topnav" do
+      click_on "Login"
+    end
+
+    expect(current_path).to eq("/login")
+
+    fill_in :email, with: "#{@regular_user.email}"
+    fill_in :password, with: "#{@regular_user.password}"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/profile")
+
+    expect(page).to have_content(@regular_user.name)
+    expect(page).to have_content(@regular_user.address)
+    expect(page).to have_content(@regular_user.state)
+    expect(page).to have_content(@regular_user.zip)
+    expect(page).to have_content(@regular_user.email)
+    expect(page).to have_link("Edit")
+
+
+  end
 end
