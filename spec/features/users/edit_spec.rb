@@ -31,12 +31,12 @@ RSpec.describe do
     fill_in :zip, with: '80102'
 
     click_on "Submit"
-
-    expect(surrent_path).to eq('/profile')
-    expect(page).to have('Spud Nugget')
-    expect(page).to have('222 Blvd.')
-    expect(page).to have('Tucson')
-    expect(page).to have('AZ')
-    expect(page).to have('80102')
+save_and_open_page
+    expect(current_path).to eq('/profile')
+    expect(page).to have_content('Spud Nugget')
+    expect(page).to have_content('222 Blvd.')
+    expect(page).to have_content('Tucson')
+    expect(page).to have_content('AZ')
+    expect(page).to have_content('80102')
   end
 end
