@@ -43,27 +43,6 @@ RSpec.describe "As a user" do
     expect(page).to have_content('80102')
   end
 
-  skip it "Will let user know if a field is empty" do
-
-    click_on "Edit"
-
-    expect(current_path).to eq('/profile/edit')
-
-    fill_in :name, with: 'Spud Nugget'
-    fill_in :address, with: '222 Blvd.'
-    fill_in :city, with: 'Tucson'
-    fill_in :state, with: ''
-    fill_in :zip, with: '80102'
-    fill_in :email, with: @regular_user.email
-    fill_in :password, with: @regular_user.password
-
-    click_on "Submit"
-
-    expect(current_path).to eq('/profile/edit')
-    expect(page).to have_content("Please fill in the following fields: ['state']")
-
-  end
-
   it "will let you edit password when filling out correctly" do
 
     visit '/profile'
@@ -74,7 +53,6 @@ RSpec.describe "As a user" do
     click_on "Submit"
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Your password has been updated")
-
 
   end
 
