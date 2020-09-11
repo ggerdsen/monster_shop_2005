@@ -11,5 +11,12 @@
   <%= text_field_tag :state, @user.state %>
   <%= label_tag :zip %>
   <%= text_field_tag :zip, @user.zip %>
+  <%= label_tag :email %>
+  <%= text_field_tag :email, @user.email %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <br>
+  <%= label_tag :password_confirmation %>
+  <%= password_field_tag :password_confirmationd %>
   <%= submit_tag "Submit"%>
 <% end %>
