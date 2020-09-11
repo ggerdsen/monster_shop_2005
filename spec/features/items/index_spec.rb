@@ -10,6 +10,34 @@ RSpec.describe "Items Index Page" do
 
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
+
+      @regular_user = User.create(name: "Jim Bob",
+                                 address: "2020 Whiskey River Blvd",
+                                 city: "Bamaville",
+                                 state: "AL",
+                                 zip: "33675",
+                                 email: "jimbobwoowoo@aol.com",
+                                 password: "merica4lyfe",
+                                 role: 0)
+
+      @merchant_user = User.create(name: "Sales Bob",
+                                  address: "2020 Whiskey River Blvd",
+                                  city: "Bamaville",
+                                  state: "AL",
+                                  zip: "33675",
+                                  email: "salebobwoowoo@aol.com",
+                                  password: "mmerica4lyfe",
+                                  role: 1)
+
+      @admin_user = User.create(name: "Admin Bob",
+                               address: "2020 Whiskey River Blvd",
+                               city: "Bamaville",
+                               state: "AL",
+                               zip: "33675",
+                               email: "adminbobwoowoo@aol.com",
+                               password: "america4lyfe",
+                               role: 2)
+
     end
 
     it "all items or merchant names are links" do
@@ -59,32 +87,6 @@ RSpec.describe "Items Index Page" do
     end
 
     it "As any kind of user in the system I see all items except disabled items" do
-      regular_user = User.create(name: "Jim Bob",
-                                 address: "2020 Whiskey River Blvd",
-                                 city: "Bamaville",
-                                 state: "AL",
-                                 zip: "33675",
-                                 email: "jimbobwoowoo@aol.com",
-                                 password: "merica4lyfe",
-                                 role: 0)
-
-      merchant_user = User.create(name: "Sales Bob",
-                                  address: "2020 Whiskey River Blvd",
-                                  city: "Bamaville",
-                                  state: "AL",
-                                  zip: "33675",
-                                  email: "salebobwoowoo@aol.com",
-                                  password: "mmerica4lyfe",
-                                  role: 1)
-
-      admin_user = User.create(name: "Admin Bob",
-                               address: "2020 Whiskey River Blvd",
-                               city: "Bamaville",
-                               state: "AL",
-                               zip: "33675",
-                               email: "adminbobwoowoo@aol.com",
-                               password: "america4lyfe",
-                               role: 2)
 
       visit "/items"
 
@@ -95,8 +97,8 @@ RSpec.describe "Items Index Page" do
 
       visit '/login'
 
-      fill_in :email, with: regular_user.email
-      fill_in :password, with: regular_user.password
+      fill_in :email, with: @regular_user.email
+      fill_in :password, with: @regular_user.password
 
       click_on 'Submit'
 
@@ -111,8 +113,8 @@ RSpec.describe "Items Index Page" do
 
       visit '/login'
 
-      fill_in :email, with: merchant_user.email
-      fill_in :password, with: merchant_user.password
+      fill_in :email, with: @merchant_user.email
+      fill_in :password, with: @merchant_user.password
 
       click_on 'Submit'
 
@@ -127,8 +129,8 @@ RSpec.describe "Items Index Page" do
 
       visit '/login'
 
-      fill_in :email, with: admin_user.email
-      fill_in :password, with: admin_user.password
+      fill_in :email, with: @admin_user.email
+      fill_in :password, with: @admin_user.password
 
       click_on 'Submit'
 
