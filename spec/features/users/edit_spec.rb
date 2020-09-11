@@ -43,7 +43,7 @@ RSpec.describe "As a user" do
     expect(page).to have_content('80102')
   end
 
-  skip it "Will let user know if a field is empty" do
+    it "Will let user know if a field is empty" do
 
     click_on "Edit"
 
@@ -60,7 +60,7 @@ RSpec.describe "As a user" do
     click_on "Submit"
 
     expect(current_path).to eq('/profile/edit')
-    expect(page).to have_content("Please fill in the following fields: ['state']")
+    expect(page).to have_content("Password confirmation doesn't match Password and State can't be blank")
 
   end
 
