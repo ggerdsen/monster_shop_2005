@@ -145,7 +145,6 @@ RSpec.describe "As a visitor" do
 
     expect(current_path).to eq("/profile")
 
-    save_and_open_page
     expect(page).to have_content(@regular_user.name)
     expect(page).to have_content(@regular_user.address)
     expect(page).to have_content(@regular_user.state)

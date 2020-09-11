@@ -62,4 +62,32 @@ RSpec.describe do
     expect(page).to have_content("Please fill in the following fields: ['state']")
 
   end
+
+  it "will let you edit password when filling out correctly" do
+
+    visit '/profile'
+    click_on 'Edit Password'
+    expect(current_path).to eq('/profile/password')
+    fill_in :password, with: "new_password"
+    fill_in :password_confirmation, with: "new_password"
+    click_on "Submit"
+    expect(current_path).to eq('/profile')
+    expect(page).to have_content("Your password has been updated")
+
+
+  end
+
+  it "will let you give error message when edit password form is incorrectly filled" do
+
+    visit '/profile'
+    click_on 'Edit Password'
+    expect(current_path).to eq('/profile/password')
+    fill_in :password, with: "new_password"
+    fill_in :password_confirmation, with: "new_passworddd"
+    click_on "Submit"
+    expect(current_path).to eq('/profile/password')
+    expect(page).to have_content("Password confirmation doesn't match Password")
+
+  end
+  
 end
