@@ -9,6 +9,9 @@ class CartController < ApplicationController
   def show
     render file: "/public/404" if current_admin?
     @items = cart.items
+    if !current_user
+      flash.now[:notice] = "You must #{view_context.link_to 'Register', '/register'} or #{view_context.link_to 'Login', '/login'} in order to checkout".html_safe
+    end
   end
 
   def empty
