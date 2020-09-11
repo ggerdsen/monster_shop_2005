@@ -30,7 +30,7 @@ RSpec.describe do
     fill_in :state, with: 'AZ'
     fill_in :zip, with: '80102'
 
-    click_on "Done"
+    click_on "Submit"
 
     expect(surrent_path).to eq('/profile')
     expect(page).to have('Spud Nugget')
