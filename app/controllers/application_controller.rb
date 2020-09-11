@@ -19,4 +19,12 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?
   end
 
+  def grab_empty_keys
+    keys = []
+    params.each do |key, value|
+      keys << key if value.empty?
+    end
+    keys
+  end
+
 end
