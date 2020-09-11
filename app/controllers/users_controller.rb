@@ -30,7 +30,7 @@ class  UsersController < ApplicationController
       flash[:notice] = "Update Complete!"
       redirect_to '/profile'
     else
-      flash[:notice] = "Please fill in the following fields: #{grab_empty_keys}"
+      flash[:notice] = current_user.errors.full_messages.uniq.to_sentence
       redirect_to '/profile/edit'
     end
   end

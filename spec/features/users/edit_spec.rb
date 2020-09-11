@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe do
+RSpec.describe "As a user" do
 
   before :each do
     @regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
-
+    @second_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "second_user@email.com", password: "123", role: 0)
     visit "/"
     within ".topnav" do
       click_on "Login"
@@ -88,6 +88,24 @@ RSpec.describe do
     click_on "Submit"
     expect(current_path).to eq('/profile/password')
     expect(page).to have_content("Password confirmation doesn't match Password")
+
+  end
+
+  it "will not let you change your email address to one already in use" do
+
+    visit '/profile'
+    click_on 'Edit'
+    fill_in :name, with: 'Spud Nugget'
+    fill_in :address, with: '222 Blvd.'
+    fill_in :city, with: 'Tucson'
+    fill_in :state, with: 'AZ'
+    fill_in :zip, with: '80102'
+    fill_in :email, with: @second_user.email
+    fill_in :password, with: @regular_user.password
+    fill_in :password_confirmation, with: @regular_user.password
+    click_on "Submit"
+    expect(current_path).to eq('/profile/edit')
+    expect(page).to have_content("Email has already been taken")
 
   end
 
