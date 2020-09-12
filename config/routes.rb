@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     get '/', to: "dashboard#index"
   end
 
+  namespace :default do
+    resources :users, only: [:index] do
+      resources :orders, only: [:show]
+    end
+  end
+
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
   get "/merchants/:id", to: "merchants#show"
