@@ -32,4 +32,20 @@ class Cart
     end
   end
 
+  def add_quantity(item_id)
+    @contents[item_id] += 1
+  end
+
+  def subtract_quantity(item_id)
+    @contents[item_id] -= 1
+  end
+
+  def item_count(item_id)
+    @contents[item_id.to_s]
+  end
+
+  def out_of_stock?(item_id)
+    item_count(item_id) == Item.find(item_id).inventory
+  end
+
 end
