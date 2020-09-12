@@ -6,10 +6,10 @@ RSpec.describe "Items Index Page" do
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
-      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 120)
-      @zebra_tire = @meg.items.create(name: "Zebraskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 120)
-      @snake_tire = @meg.items.create(name: "Snakeskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 120)
-      @ostrich_tire = @meg.items.create(name: "Ostrichskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 120)
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 115, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 120)
+      @zebra_tire = @meg.items.create(name: "Zebraskins", description: "They're mostly Zebra free!", price: 120, image: "https://i.pinimg.com/originals/d2/a2/10/d2a210e2bc35c1fee", inventory: 110)
+      @snake_tire = @meg.items.create(name: "Snakeskins", description: "Snakes on a tire!", price: 125, image: "https://i.pinimg.com/originals/0c/d0/00/0cd000894f428500bfcd0483af62911d.jpg", inventory: 125)
+      @ostrich_tire = @meg.items.create(name: "Ostrichskins", description: "Absolutely massive!", price: 140, image: "https://i.ebayimg.com/images/g/2i8AAOSwnWFenp6f/s-l640.jpg", inventory: 140)
 
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 320)
       @chew_toy = @brian.items.create(name: "Chew Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 320)
