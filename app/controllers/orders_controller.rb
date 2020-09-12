@@ -3,7 +3,7 @@ class OrdersController <ApplicationController
   def new
 
   end
-  
+
   def index
     @user = User.find(current_user.id)
   end
@@ -24,7 +24,7 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
-      if current_user.role == "default"
+      if current_user
         flash[:success] = "Your order has been created"
         redirect_to "/profile/orders"
       else
