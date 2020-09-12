@@ -63,5 +63,15 @@ RSpec.describe Cart do
       @cart.subtract_quantity(@ogre)
       expect(@cart.contents[@ogre]).to eq(1)
     end
+
+    it ".item_count()" do
+      expect(@cart.item_count(@ogre.id)).to eq(1)
+      expect(@cart.item_count(@giant.id)).to eq(2)
+    end
+
+    it ".out_of_stock?()" do
+      expect(@cart.out_of_stock?(@ogre.id)).to eq(false)
+      expect(@cart.out_of_stock?(@giant.id)).to eq(true)
+    end
   end
 end
