@@ -91,6 +91,8 @@ RSpec.describe 'Cart show' do
       expect(ItemOrder.last.status).to eq("pending")
       
       expect(current_path).to eq("/profile/orders")
+      expect(page).to have_content("Your order has been created")
+      save_and_open_page
     end
   end
   
