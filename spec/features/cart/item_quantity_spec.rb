@@ -23,7 +23,6 @@ RSpec.describe "Adjusting item quantity of cart" do
 
       visit "/cart"
 
-
       within "#item_quantity-#{@gator_tire.id}" do
         expect(page).to have_link("+")
         expect(page).to have_link("-")
@@ -39,7 +38,23 @@ RSpec.describe "Adjusting item quantity of cart" do
         expect(page).to have_content("1")
         click_on("-")
       end
+
+      within "#item_quantity-#{@zebra_tire.id}" do
+        expect(page).to have_content("1")
+        click_on("+")
+        expect(page).to have_content("2")
+        click_on("+")
+        expect(page).to have_content("3")
+        click_on("+")
+        expect(page).to have_content("3")
+        click_on("-")
+        expect(page).to have_content("2")
+        click_on("-")
+        expect(page).to have_content("1")
+        click_on("-")
+      end
       expect(page).to_not have_content("#{@gator_tire.name}")
+      expect(page).to_not have_content("#{@zebra_tire.name}")
     end
   end
 end
