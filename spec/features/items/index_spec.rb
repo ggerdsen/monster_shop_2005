@@ -44,16 +44,16 @@ RSpec.describe "Items Index Page" do
                                 password: "america4lyfe",
                                 role: 2)
 
-      @order = Order.create(id: 1, name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675")
+      @order = @regular_user.orders.create(id: 1, name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675")
 
-      ItemOrder.create(order_id: @order.id, item: @pull_toy, quantity: 6, price: @pull_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @chew_toy, quantity: 8, price: @chew_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @old_toy, quantity: 10, price: @old_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @new_toy, quantity: 12, price: @new_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @tire, quantity: 14, price: @tire.price)
-      ItemOrder.create(order_id: @order.id, item: @zebra_tire, quantity: 16, price: @zebra_tire.price)
-      ItemOrder.create(order_id: @order.id, item: @snake_tire, quantity: 18, price: @snake_tire.price)
-      ItemOrder.create(order_id: @order.id, item: @ostrich_tire, quantity: 20, price: @ostrich_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @pull_toy, quantity: 6, price: @pull_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @chew_toy, quantity: 8, price: @chew_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @old_toy, quantity: 10, price: @old_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @new_toy, quantity: 12, price: @new_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @tire, quantity: 14, price: @tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @zebra_tire, quantity: 16, price: @zebra_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @snake_tire, quantity: 18, price: @snake_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @ostrich_tire, quantity: 20, price: @ostrich_tire.price)
     end
 
     it "all items or merchant names are links" do
@@ -162,7 +162,6 @@ RSpec.describe "Items Index Page" do
       including the top 5 most and least popular items and their quantity bought" do
 
       visit "/items"
-
       within("#most-popular-items") do
         expect(@ostrich_tire.name).to appear_before(@snake_tire.name)
         expect(@zebra_tire.name).to appear_before(@tire.name)

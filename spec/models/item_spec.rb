@@ -69,16 +69,16 @@ describe Item, type: :model do
                                 password: "america4lyfe",
                                 role: 2)
 
-      @order = Order.create(id: 1, name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675")
+      @order = @regular_user.orders.create(id: 1, name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675")
 
-      ItemOrder.create(order_id: @order.id, item: @pull_toy, quantity: 6, price: @pull_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @chew_toy, quantity: 8, price: @chew_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @old_toy, quantity: 10, price: @old_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @new_toy, quantity: 12, price: @new_toy.price)
-      ItemOrder.create(order_id: @order.id, item: @tire, quantity: 14, price: @tire.price)
-      ItemOrder.create(order_id: @order.id, item: @zebra_tire, quantity: 16, price: @zebra_tire.price)
-      ItemOrder.create(order_id: @order.id, item: @snake_tire, quantity: 18, price: @snake_tire.price)
-      ItemOrder.create(order_id: @order.id, item: @ostrich_tire, quantity: 20, price: @ostrich_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @pull_toy, quantity: 6, price: @pull_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @chew_toy, quantity: 8, price: @chew_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @old_toy, quantity: 10, price: @old_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @new_toy, quantity: 12, price: @new_toy.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @tire, quantity: 14, price: @tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @zebra_tire, quantity: 16, price: @zebra_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @snake_tire, quantity: 18, price: @snake_tire.price)
+      ItemOrder.create(status: "pending", order_id: @order.id, item: @ostrich_tire, quantity: 20, price: @ostrich_tire.price)
     end
 
     it "calculate average review" do
@@ -95,8 +95,8 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
+      order = @regular_user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order.item_orders.create(status: "pending", item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
 
