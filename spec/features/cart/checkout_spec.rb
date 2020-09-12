@@ -50,7 +50,7 @@ RSpec.describe 'Cart show' do
     end
   end
   
-  describe "As a regular/default user" do
+  describe "I can checkout and have my order profile page populate" do
     it "Will flash a message when I try to checkout" do
       meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -92,21 +92,11 @@ RSpec.describe 'Cart show' do
       
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("Your order has been created")
-      save_and_open_page
+
+      within '.topnav' do
+        expect(page).to have_content("Cart: 0")
+      end
+
     end
   end
-  
-  # User Story 26, Registered users can check out
-
-# As a registered user
-# When I add items to my cart
-# And I visit my cart
-# I see a button or link indicating that I can check out
-# And I click the button or link to check out and fill out order info and click create order
-# An order is created in the system, which has a status of "pending"
-# That order is associated with my user
-# I am taken to my orders page ("/profile/orders")
-# I see a flash message telling me my order was created
-# I see my new order listed on my profile orders page
-# My cart is now empty
 end
