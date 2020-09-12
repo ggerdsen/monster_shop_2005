@@ -3,23 +3,33 @@ class OrdersController <ApplicationController
   def new
 
   end
+  
+  def index
+    @user = User.find(current_user.id)
+  end
 
   def show
     @order = Order.find(params[:id])
   end
 
   def create
-    order = Order.create(order_params)
+    order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
           item: item,
           quantity: quantity,
-          price: item.price
+          price: item.price,
+          status: "pending"
           })
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
+      if current_user.role == "default"
+        flash[:success] = "Your order has been created"
+        redirect_to "/profile/orders"
+      else
+        redirect_to "/orders/#{order.id}"
+      end
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
@@ -30,6 +40,7 @@ class OrdersController <ApplicationController
   private
 
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    user_id = current_user.id
+    params.permit(:name, :address, :city, :state, :zip, :user_id)
   end
 end

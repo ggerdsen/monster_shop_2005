@@ -1,0 +1,19 @@
+<h1>Orders for <%= @user.name %></h1>
+<hr>
+<% @user.orders.each do |order| %>
+    <section>
+      <p> <%=link_to "Order Number: #{order.id}", "/orders/#{order.id}"%></p>
+    </section>
+    <section id="date-created">
+      <p>Order Placed At: <%= order.created_at%></p>
+    </section>
+    <section id="date-updated">
+      <p>Last Updated At: <%= order.updated_at %> </p>
+    </section>
+    <section id="order-quantity">
+      <p>Total Number of Items in Order: <%= order.item_orders.count %></p>
+    </section>
+  </section>
+  <hr style="border: 2px solid #002244" />
+<% end %>
+

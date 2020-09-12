@@ -20,9 +20,10 @@ describe Merchant, type: :model do
     end
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
+      regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
 
-      order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      item_order_1 = order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      order_1 = regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      item_order_1 = order_1.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
 
       expect(@meg.no_orders?).to eq(false)
     end
@@ -41,12 +42,13 @@ describe Merchant, type: :model do
 
     it 'distinct_cities' do
       chain = @meg.items.create(name: "Chain", description: "It'll never break!", price: 40, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 22)
-      order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      order_2 = Order.create!(name: 'Brian', address: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033)
-      order_3 = Order.create!(name: 'Dao', address: '123 Mike Ave', city: 'Denver', state: 'CO', zip: 17033)
-      order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      order_2.item_orders.create!(item: chain, price: chain.price, quantity: 2)
-      order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+      order_1 = regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order_2 = regular_user.orders.create!(name: 'Brian', address: '123 Brian Ave', city: 'Denver', state: 'CO', zip: 17033)
+      order_3 = regular_user.orders.create!(name: 'Dao', address: '123 Mike Ave', city: 'Denver', state: 'CO', zip: 17033)
+      order_1.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
+      order_2.item_orders.create!(status: "pending", item: chain, price: chain.price, quantity: 2)
+      order_3.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
 
       expect(@meg.distinct_cities).to include("Denver")
       expect(@meg.distinct_cities).to include("Hershey")
