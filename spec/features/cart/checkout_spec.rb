@@ -36,4 +36,15 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout")
     end
   end
+
+  describe "As a visitor" do
+    it "Will flash a message when I try to checkout" do
+
+      visit "/cart"
+
+      expect(page).to have_content("You must Register or Login in order to checkout")
+      expect(page).to have_link("Register")
+      expect(page).to have_link("Login")
+    end
+  end
 end
