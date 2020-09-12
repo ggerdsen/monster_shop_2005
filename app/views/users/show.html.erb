@@ -6,3 +6,7 @@
   <p><%= @user.zip %></p>
   <p><%= link_to "Edit", "/profile/edit" %></p>
   <p><%= link_to "Edit Password", "/profile/password" %></p>
+
+  <% if @user.orders.any? %>
+    <p><%= link_to "My Orders", "/profile/orders" %></p>
+  <% end %>
