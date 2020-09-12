@@ -48,11 +48,20 @@ RSpec.describe Cart do
       expect(@cart.subtotal(@giant)).to eq(100)
     end
 
-    it ".add_quantity() do" do
+    it ".add_quantity()" do
       @cart.add_item(@ogre)
       expect(@cart.contents[@ogre]).to eq(1)
       @cart.add_quantity(@ogre)
       expect(@cart.contents[@ogre]).to eq(2)
+    end
+
+    it ".subtract_quantity()" do
+      @cart.add_item(@ogre)
+      expect(@cart.contents[@ogre]).to eq(1)
+      @cart.add_quantity(@ogre)
+      expect(@cart.contents[@ogre]).to eq(2)
+      @cart.subtract_quantity(@ogre)
+      expect(@cart.contents[@ogre]).to eq(1)
     end
   end
 end
