@@ -8,4 +8,12 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def total_item_count(id)
+     item_orders.joins(:item).where(items: {merchant_id: id}).sum(:quantity)
+  end
+
+  def total_item_value(id)
+     item_orders.joins(:item).where(items: {merchant_id: id}).sum(self.grandtotal)
+  end
 end
