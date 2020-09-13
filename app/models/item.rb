@@ -33,5 +33,15 @@ class Item <ApplicationRecord
     select('items.*, sum(quantity) as total').joins(:item_orders).group('items.id').order('total').limit(5)
 
   end
+  
+  def modify_item_inventory(item, quantity, action)
+    if action == :decrease
+      new_quantity = (item.inventory - quantity)
+      item.update(inventory: new_quantity)
+    elsif action == :increase
+      new_quantity = (item.inventory + quantity)
+      item.update(inventory: new_quantity)
+    end
+  end
 
 end
