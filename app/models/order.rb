@@ -30,7 +30,7 @@ class Order <ApplicationRecord
   
   def edit_item_orders
     self.item_orders.each do |item|
-      item.update(status: "unfillfilled")
+      item.update(status: "unfulfilled")
     end
   end
 end
