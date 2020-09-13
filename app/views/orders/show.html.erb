@@ -40,9 +40,9 @@
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
       </section>
     </tr>
-    <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %></p>
   <% end %>
 </table>
+<p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %></p>
 
 <section id="grandtotal">
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
