@@ -85,8 +85,69 @@ RSpec.describe "As an Admin" do
     expect(order_2.user.name).to appear_before(order_1.user.name)
     expect(order_1.user.name).to appear_before(order_3.user.name)
     expect(order_3.user.name).to appear_before(order_4.user.name)
+  end
+
+  it "will let an admin change order status from packaged to shipped with link" do
+    admin = User.create(name: "Jim Bob Manager Extraordinaire",
+                       address: "2020 Whiskey River Blvd",
+                       city: "Bamaville",
+                       state: "AL",
+                       zip: "33675",
+                       email: "jimbobwoowoo@aol.com",
+                       password: "merica4lyfe",
+                       role: 2)
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+    second_user = User.create!(name: "Drew Bob", address: "1 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "second_user@email.com", password: "123", role: 0)
+    third_user = User.create!(name: "Scooby Doo", address: "133 Main St.", city: "Denver", state: "CO", zip: "80085", email: "third_user@email.com", password: "123", role: 0)
+    fourth_user = User.create!(name: "Jerry McGuire", address: "14 Harry St.", city: "Denver", state: "CO", zip: "80085", email: "fourth_user@email.com", password: "123", role: 0)
+    order_1 = regular_user.orders.create!(name: regular_user.name, address: regular_user.address, city: regular_user.city, state: regular_user.state, zip: regular_user.zip)
+    order_1.item_orders.create!(status: "pending", item: tire, price: tire.price, quantity: 3)
+    order_1.item_orders.create!(status: "pending", item: paper, price: paper.price, quantity: 1)
+    order_1.item_orders.create!(status: "pending", item: pencil, price: pencil.price, quantity: 12)
+
+    order_2 = second_user.orders.create!(name: second_user.name, address: second_user.address, city: second_user.city, state: second_user.state, zip: second_user.zip, status: "packaged")
+    order_2.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 2)
+    order_2.item_orders.create!(status: "fulfilled", item: paper, price: paper.price, quantity: 1)
+    order_2.item_orders.create!(status: "fulfilled", item: pencil, price: pencil.price, quantity: 32)
+
+    order_3 = third_user.orders.create!(name: third_user.name, address: third_user.address, city: third_user.city, state: third_user.state, zip: third_user.zip, status: "shipped")
+    order_3.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 6)
+    order_3.item_orders.create!(status: "fulfilled", item: pencil, price: pencil.price, quantity: 1)
+
+    order_4 = fourth_user.orders.create!(name: fourth_user.name, address: fourth_user.address, city: fourth_user.city, state: fourth_user.state, zip: fourth_user.zip, status: "cancelled")
+    order_4.item_orders.create!(status: "fulfilled", item: paper, price: paper.price, quantity: 1)
+    order_4.item_orders.create!(status: "fulfilled", item: pencil, price: pencil.price, quantity: 40)
+
+    visit "/merchants"
+    click_on "Login"
+    fill_in :password, with: admin.password
+    fill_in :email, with: admin.email
+    click_on "Submit"
+    visit "/admin"
+    save_and_open_page
+    within("#packaged") do
+      click_on "Ship Order"
+    end
+    save_and_open_page
+    within("#shipped") do
+      expect(page).to have_content(order_2.user.name)
+    end
+
 
 
   end
+#   User Story 33, Admin can "ship" an order
+#
+# As an admin user
+# When I log into my dashboard, "/admin"
+# Then I see any "packaged" orders ready to ship.
+# Next to each order I see a button to "ship" the order.
+# When I click that button for an order, the status of that order changes to "shipped"
+# And the user can no longer "cancel" the order.
 
 end

@@ -3,7 +3,7 @@ class OrdersController <ApplicationController
   def new
 
   end
-  
+
   def index
     @user = User.find(current_user.id)
   end
@@ -34,6 +34,13 @@ class OrdersController <ApplicationController
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+  end
+
+  def ship
+    order = Order.find(params[:id])
+    order.update(status: "shipped")
+    order.save
+    redirect_to "/admin"
   end
 
 
