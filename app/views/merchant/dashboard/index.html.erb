@@ -7,6 +7,11 @@
     <%= @merchant.zip %>
   </section>
 
-<h2>Pending Orders:</h2>
-  <section class='pending-orders'>
-    
+<h3>Pending Orders:</h3>
+<% @merchant.pending_orders.each do |order| %>
+    <section class='pending-orders-<%= order.id %>'>
+      <h4><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></h4>
+      <li>Order Status: <%= order.created_at %></li>
+      <li>Total Items: <%= order.total_item_count(@merchant.id) %></li>
+      <li>Total Value: $<%= order.total_item_value(@merchant.id) %></li>
+<% end %>
