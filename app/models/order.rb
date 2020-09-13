@@ -15,5 +15,14 @@ class Order <ApplicationRecord
 
   def total_item_value(id)
      item_orders.joins(:item).where(items: {merchant_id: id}).sum(self.grandtotal)
+  end 
+  
+  def approved?
+    all_items_status = item_orders.pluck(:status)
+    if all_items_status.any?("pending")
+       "Pending"
+    else
+      "Approved"
+    end
   end
 end

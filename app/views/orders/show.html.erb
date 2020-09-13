@@ -31,7 +31,9 @@
   <% @order.item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
-        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p>
+        <div class="thumbnail"><img id="thumbnail"  src=<%="#{item_order.item.image}"%> alt=<%= "#{item_order.item.name}" %>
+        </div></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
@@ -43,7 +45,12 @@
 
 <section id="grandtotal">
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
+  <section id="order-quantity">
+    <p>Quantity: <%= @order.item_orders.count %></p>
+  </section>
+
 </section>
 <section id="datecreated">
-  <p> <%= @order.created_at%></p>
+  <p> Order <%= @order.id %> Request At: <%= @order.created_at%></p>
+  <p>Status: <%= @order.approved? %>,  Resent Update: <%= @order.updated_at %></p>
 </section>

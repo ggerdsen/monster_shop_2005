@@ -156,3 +156,10 @@ td, th {
 tr:nth-child(even) {
   background-color: #F0F8FF;
 }
+
+.thumbnail {
+  text-align: right;
+  border-radius: 4px;  /* Rounded border */
+  height: 50px;
+  width: 50px; /* Set a small width */
+}
