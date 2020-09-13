@@ -15,14 +15,22 @@ class Order <ApplicationRecord
 
   def total_item_value(id)
      item_orders.joins(:item).where(items: {merchant_id: id}).sum(self.grandtotal)
-  end 
+  end
   
   def approved?
     all_items_status = item_orders.pluck(:status)
     if all_items_status.any?("pending")
-       "Pending"
+      "Pending"
+    elsif all_items_status.all?("unfulfilled")
+      "Cancelled"
     else
       "Approved"
+    end
+  end
+  
+  def edit_item_orders
+    self.item_orders.each do |item|
+      item.update(status: "unfillfilled")
     end
   end
 end

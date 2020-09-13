@@ -35,6 +35,14 @@ class OrdersController <ApplicationController
       render :new
     end
   end
+  
+  def update
+    order = Order.find(params[:order_id])
+    order.update(status: "cancelled")
+    order.edit_item_orders
+    flash[:success] = "Your order has been cancelled"
+    redirect_to "/profile"
+  end
 
 
   private
