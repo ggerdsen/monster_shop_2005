@@ -158,6 +158,8 @@ tr:nth-child(even) {
 }
 
 .thumbnail {
+  text-align: right;
   border-radius: 4px;  /* Rounded border */
-  width: 150px; /* Set a small width */
+  height: 50px;
+  width: 50px; /* Set a small width */
 }
