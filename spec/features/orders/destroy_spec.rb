@@ -63,6 +63,8 @@ RSpec.describe("Order Cancellation") do
         
         expect(current_path).to eq("/profile")
         
+        order = Order.last
+        
         order.item_orders.each do |item|
           expect(item.status).to eq("unfulfilled")
         end
