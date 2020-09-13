@@ -8,4 +8,20 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def self.pending
+    self.where(status: "pending")
+  end
+
+  def self.packaged
+    self.where(status: "packaged")
+  end
+
+  def self.shipped
+    self.where(status: "shipped")
+  end
+
+  def self.cancelled
+    self.where(status: "cancelled")
+  end
 end
