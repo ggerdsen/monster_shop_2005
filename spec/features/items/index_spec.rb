@@ -33,7 +33,8 @@ RSpec.describe "Items Index Page" do
                                    zip: "33675",
                                    email: "salebobwoowoo@aol.com",
                                    password: "mmerica4lyfe",
-                                   role: 1)
+                                   role: 1,
+                                   merchant_id: @meg.id)
 
       @admin_user = User.create(name: "Admin Bob",
                                 address: "2020 Whiskey River Blvd",
