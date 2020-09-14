@@ -129,25 +129,14 @@ RSpec.describe "As an Admin" do
     fill_in :email, with: admin.email
     click_on "Submit"
     visit "/admin"
-    save_and_open_page
     within("#packaged") do
       click_on "Ship Order"
     end
-    save_and_open_page
     within("#shipped") do
       expect(page).to have_content(order_2.user.name)
     end
-
-
-
+    visit "/orders/#{order_2.id}"
+    expect(page).to_not have_button("Cancel Order")
   end
-#   User Story 33, Admin can "ship" an order
-#
-# As an admin user
-# When I log into my dashboard, "/admin"
-# Then I see any "packaged" orders ready to ship.
-# Next to each order I see a button to "ship" the order.
-# When I click that button for an order, the status of that order changes to "shipped"
-# And the user can no longer "cancel" the order.
 
 end
