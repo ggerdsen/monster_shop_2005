@@ -29,4 +29,8 @@ class Merchant <ApplicationRecord
   def pending_orders
     Order.joins(:items).where(items: {merchant_id: id}).where(status: "pending").distinct
   end
+
+  def disabled?
+    self.disabled
+  end
 end

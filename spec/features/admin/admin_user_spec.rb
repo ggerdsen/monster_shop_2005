@@ -47,9 +47,9 @@ RSpec.describe "As an Admin" do
     third_user = User.create!(name: "Scooby Doo", address: "133 Main St.", city: "Denver", state: "CO", zip: "80085", email: "third_user@email.com", password: "123", role: 0)
     fourth_user = User.create!(name: "Jerry McGuire", address: "14 Harry St.", city: "Denver", state: "CO", zip: "80085", email: "fourth_user@email.com", password: "123", role: 0)
     order_1 = regular_user.orders.create!(name: regular_user.name, address: regular_user.address, city: regular_user.city, state: regular_user.state, zip: regular_user.zip)
-    order_1.item_orders.create!(status: "pending", item: tire, price: tire.price, quantity: 3)
-    order_1.item_orders.create!(status: "pending", item: paper, price: paper.price, quantity: 1)
-    order_1.item_orders.create!(status: "pending", item: pencil, price: pencil.price, quantity: 12)
+    order_1.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 3)
+    order_1.item_orders.create!(status: "fulfilled", item: paper, price: paper.price, quantity: 1)
+    order_1.item_orders.create!(status: "fulfilled", item: pencil, price: pencil.price, quantity: 12)
 
     order_2 = second_user.orders.create!(name: second_user.name, address: second_user.address, city: second_user.city, state: second_user.state, zip: second_user.zip, status: "packaged")
     order_2.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 2)
@@ -174,5 +174,53 @@ RSpec.describe "As an Admin" do
     expect(page).to have_content(order_1.total_item_value(mike.id))
 
   end
+
+  it "can disable merchants" do
+    admin = User.create(name: "Jim Bob Manager Extraordinaire",
+                       address: "2020 Whiskey River Blvd",
+                       city: "Bamaville",
+                       state: "AL",
+                       zip: "33675",
+                       email: "jimbobwoowoo@aol.com",
+                       password: "merica4lyfe",
+                       role: 2)
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+    order_1 = regular_user.orders.create!(name: regular_user.name, address: regular_user.address, city: regular_user.city, state: regular_user.state, zip: regular_user.zip)
+    order_1.item_orders.create!(status: "pending", item: paper, price: paper.price, quantity: 1)
+    order_1.item_orders.create!(status: "pending", item: pencil, price: pencil.price, quantity: 12)
+    visit "/merchants"
+    click_on "Login"
+    fill_in :password, with: admin.password
+    fill_in :email, with: admin.email
+    click_on "Submit"
+    visit "/admin/merchants"
+    expect(page).to have_content(mike.name)
+    expect(page).to have_content(meg.name)
+    expect(page).to have_button("Disable")
+    within("#merchant-#{mike.id}") do
+      click_on "Disable"
+    end
+    expect(current_path).to eq("/admin/merchants")
+    within("#valid-merchants") do
+      expect(page).to have_content(meg.name)
+    end
+    within("#disabled-merchants") do
+      expect(page).to have_content(mike.name)
+    end
+    expect(page).to have_content("#{mike.name}'s account has been disabled.")
+  end
+
+#   User Story 38, Admin disables a merchant account
+#
+# As an admin
+# When I visit the admin's merchant index page ('/admin/merchants')
+# I see a "disable" button next to any merchants who are not yet disabled
+# When I click on the "disable" button
+# I am returned to the admin's merchant index page where I see that the merchant's account is now disabled
+# And I see a flash message that the merchant's account is now disabled
 
 end
