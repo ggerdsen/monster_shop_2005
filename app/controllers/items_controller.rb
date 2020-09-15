@@ -19,7 +19,7 @@ class ItemsController<ApplicationController
 
   def create
     @merchant = Merchant.find(params[:merchant_id])
-    item = @merchant.items.create(item_params)
+    item = @merchant.items.new(item_params)
     if item.save
       redirect_to "/merchants/#{@merchant.id}/items"
     else
@@ -34,8 +34,9 @@ class ItemsController<ApplicationController
 
   def update
     @item = Item.find(params[:id])
+    updated = @item.updated_at
     @item.update(item_params)
-    if @item.save
+    if @item.updated_at != updated
       redirect_to "/items/#{@item.id}"
     else
       flash[:error] = @item.errors.full_messages.to_sentence
