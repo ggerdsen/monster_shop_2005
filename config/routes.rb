@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index'
+    get '/merchants', to: 'merchants#index'
+    get '/merchants/:id', to: 'merchants#show'
+    patch '/merchants/:id', to: 'merchants#update'
   end
 
   namespace :merchant do
@@ -43,6 +46,7 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
+  put "/orders/:id", to: "orders#ship"
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
@@ -52,7 +56,8 @@ Rails.application.routes.draw do
   get "/profile/password", to: 'users#edit_password'
   patch '/profile', to: 'users#update'
   put '/profile', to: 'users#update_password'
-  get "profile/orders", to: "orders#index"
+  get "/profile/orders", to: "orders#index"
+  patch "/profile/orders/:order_id", to: "orders#update"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

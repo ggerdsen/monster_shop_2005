@@ -53,6 +53,14 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to include("Denver")
       expect(@meg.distinct_cities).to include("Hershey")
     end
-
+    
+    it "Returns the pending orders for a specified merchant" do
+    chain = @meg.items.create(name: "Chain", description: "It'll never break!", price: 40, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 22)
+    regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+    expect(@meg.pending_orders).to eq([])
+    order_1 = regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+    order_1.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
+    expect(@meg.pending_orders.first).to eq(order_1)
+    end
   end
 end

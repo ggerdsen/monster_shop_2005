@@ -3,7 +3,7 @@ class OrdersController <ApplicationController
   def new
 
   end
-  
+
   def index
     @user = User.find(current_user.id)
   end
@@ -16,6 +16,7 @@ class OrdersController <ApplicationController
     order = current_user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|
+        item.modify_item_inventory(item, quantity, :decrease)
         order.item_orders.create({
           item: item,
           quantity: quantity,
@@ -34,6 +35,25 @@ class OrdersController <ApplicationController
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+  end
+  
+  def update
+    order = Order.find(params[:order_id])
+    order.update(status: "cancelled")
+    order.edit_item_orders
+    order.item_orders.each do |item, quantity|
+      item_to_restock = Item.find(item.item_id)
+      item_to_restock.modify_item_inventory(item_to_restock, item.quantity, :increase)
+    end
+    flash[:success] = "Your order has been cancelled"
+    redirect_to "/profile"
+  end
+
+  def ship
+    order = Order.find(params[:id])
+    order.update(status: "shipped")
+    order.save
+    redirect_to "/admin"
   end
 
 
