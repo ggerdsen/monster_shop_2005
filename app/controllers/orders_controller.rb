@@ -3,7 +3,7 @@ class OrdersController <ApplicationController
   def new
 
   end
-  
+
   def index
     @user = User.find(current_user.id)
   end
@@ -47,6 +47,13 @@ class OrdersController <ApplicationController
     end
     flash[:success] = "Your order has been cancelled"
     redirect_to "/profile"
+  end
+
+  def ship
+    order = Order.find(params[:id])
+    order.update(status: "shipped")
+    order.save
+    redirect_to "/admin"
   end
 
 
