@@ -23,10 +23,10 @@ describe Order, type: :model do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
-      @order_1 = @regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-
-      @order_1.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(status: "pending", item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      # @order_1 = @regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      #
+      # @order_1.item_orders.create!(status: "pending", item: @tire, price: @tire.price, quantity: 2)
+      # @order_1.item_orders.create!(status: "pending", item: @pull_toy, price: @pull_toy.price, quantity: 3)
 
       # Testing block for total_item_count and total_item_value:
       @meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -52,17 +52,32 @@ describe Order, type: :model do
     it "total_item_value" do
       expect(@order_3.total_item_value(@meg.id).to_i).to eq(575)
     end
-    
+
     it "Returns the status of an order" do
       expect(@order_1.approved?).to eq("Pending")
       expect(@order_2.approved?).to eq("Cancelled")
       expect(@order_3.approved?).to eq("Approved")
     end
-    
+
     it "Changes item_orders status to unfulfilled when cancelled" do
       expect(@order_1.item_orders[0].status).to eq("pending")
       @order_1.edit_item_orders
       expect(@order_1.item_orders[0].status).to eq("unfulfilled")
+    end
+
+    it "can get status of an order with class method" do
+      expect(Order.pending).to eq([@order_1, @order_2, @order_3])
+      @order_2.update(status: "packaged")
+      expect(Order.packaged).to eq([@order_2])
+      @order_2.update(status: "shipped")
+      expect(Order.shipped).to eq([@order_2])
+      @order_2.update(status: "cancelled")
+      expect(Order.cancelled).to eq([@order_2])
+    end
+
+    it "can restock items" do
+      @order_1.restock_items
+      expect(@order_1.items.first.inventory).to eq(27)
     end
   end
 end
