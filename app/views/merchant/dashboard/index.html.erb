@@ -15,3 +15,5 @@
       <li>Total Items: <%= order.total_item_count(@merchant.id) %></li>
       <li>Total Value: $<%= order.total_item_value(@merchant.id) %></li>
 <% end %>
+
+<p><%= link_to "My Items", "/merchant/items" %></p>
