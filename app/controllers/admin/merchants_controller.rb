@@ -12,6 +12,7 @@ class Admin::MerchantsController < Admin::BaseController
     def update
       merchant = Merchant.find(params[:id])
       merchant.update(disabled: true)
+      merchant.deactivate_items
       flash[:notice] = "#{merchant.name}'s account has been disabled."
       redirect_to "/admin/merchants"
     end
