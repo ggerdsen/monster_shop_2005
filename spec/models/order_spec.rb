@@ -33,20 +33,36 @@ describe Order, type: :model do
       @gator_tire = @meg.items.create!(name: "Gatorskins", description: "They'll never pop!", price: 115, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @zebra_tire = @meg.items.create!(name: "Zebraskins", description: "They'll never pop!", price: 200, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 22)
       @user1 = User.create!(name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675", email: "jimbobwoowoo@aol.com", password: "merica4lyfe", role: 1, merchant_id: @meg.id)
-      @order3 = @user1.orders.create!(id: 3, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
-      @order3.item_orders.create!(order_id: @order3.id, item: @zebra_tire, quantity: 5, price: @zebra_tire.price, status: "pending")
+      @order_1 = @user1.orders.create!(id: 1, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
+      @order_2 = @user1.orders.create!(id: 2, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
+      @order_3 = @user1.orders.create!(id: 3, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
+      item_order_1 = @order_1.item_orders.create!(order_id: @order_1.id, item: @zebra_tire, quantity: 5, price: @zebra_tire.price, status: "pending")
+      item_order_2 = @order_2.item_orders.create!(order_id: @order_2.id, item: @gator_tire, quantity: 5, price: @gator_tire.price, status: "unfulfilled")
+      item_order_3 = @order_3.item_orders.create!(order_id: @order_3.id, item: @gator_tire, quantity: 5, price: @gator_tire.price, status: "approved")
     end
 
     it 'grandtotal' do
-      expect(@order_1.grandtotal).to eq(230)
+      expect(@order_1.grandtotal).to eq(1000)
     end
 
     it "total_item_count" do
-      expect(@order3.total_item_count(@meg.id)).to eq(5)
+      expect(@order_3.total_item_count(@meg.id)).to eq(5)
     end
 
     it "total_item_value" do
-      expect(@order3.total_item_value(@meg.id)).to eq(1000)
+      expect(@order_3.total_item_value(@meg.id).to_i).to eq(575)
+    end
+    
+    it "Returns the status of an order" do
+      expect(@order_1.approved?).to eq("Pending")
+      expect(@order_2.approved?).to eq("Cancelled")
+      expect(@order_3.approved?).to eq("Approved")
+    end
+    
+    it "Changes item_orders status to unfulfilled when cancelled" do
+      expect(@order_1.item_orders[0].status).to eq("pending")
+      @order_1.edit_item_orders
+      expect(@order_1.item_orders[0].status).to eq("unfulfilled")
     end
   end
 end
