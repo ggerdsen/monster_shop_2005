@@ -13,17 +13,9 @@ class OrdersController <ApplicationController
   end
 
   def create
-    order = current_user.orders.create(order_params)
+    order = current_user.orders.new(order_params)
     if order.save
-      cart.items.each do |item,quantity|
-        item.modify_item_inventory(item, quantity, :decrease)
-        order.item_orders.create({
-          item: item,
-          quantity: quantity,
-          price: item.price,
-          status: "pending"
-          })
-      end
+      cart.modify(order)
       session.delete(:cart)
       if current_user.role == "default"
         flash[:success] = "Your order has been created"
@@ -41,10 +33,7 @@ class OrdersController <ApplicationController
     order = Order.find(params[:order_id])
     order.update(status: "cancelled")
     order.edit_item_orders
-    order.item_orders.each do |item, quantity|
-      item_to_restock = Item.find(item.item_id)
-      item_to_restock.modify_item_inventory(item_to_restock, item.quantity, :increase)
-    end
+    order.restock_items
     flash[:success] = "Your order has been cancelled"
     redirect_to "/profile"
   end
@@ -52,7 +41,6 @@ class OrdersController <ApplicationController
   def ship
     order = Order.find(params[:id])
     order.update(status: "shipped")
-    order.save
     redirect_to "/admin"
   end
 
@@ -60,7 +48,6 @@ class OrdersController <ApplicationController
   private
 
   def order_params
-    user_id = current_user.id
     params.permit(:name, :address, :city, :state, :zip, :user_id)
   end
 end

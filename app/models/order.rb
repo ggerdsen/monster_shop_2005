@@ -49,5 +49,12 @@ class Order <ApplicationRecord
   def self.cancelled
     self.where(status: "cancelled")
   end
+
+  def restock_items
+    item_orders.each do |item, quantity|
+      item_to_restock = Item.find(item.item_id)
+      item_to_restock.modify_item_inventory(item_to_restock, item.quantity, :increase)
+    end
+  end
   
 end
