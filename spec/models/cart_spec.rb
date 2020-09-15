@@ -73,5 +73,13 @@ RSpec.describe Cart do
       expect(@cart.out_of_stock?(@ogre.id)).to eq(false)
       expect(@cart.out_of_stock?(@giant.id)).to eq(true)
     end
+
+    it "can modify order" do
+      user1 = User.create!(name: "Jim Bob", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: "33675", email: "jimbobwoowoo@aol.com", password: "merica4lyfe", role: 1, merchant_id: @megan.id)
+      order = user1.orders.create!(id: 1, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
+      @cart.modify(order)
+      expect("#{order.item_orders.first.item_id}").to eq(@cart.contents.keys[0])
+      expect("#{order.item_orders.last.item_id}").to eq(@cart.contents.keys[1])
+    end
   end
 end
