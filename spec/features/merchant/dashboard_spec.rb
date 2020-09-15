@@ -46,7 +46,7 @@ RSpec.describe "Merchant Dashboard Show Page" do
 
     it "I see any pending orders for items this merchant sells including id, date, quantity, and value" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user1)
-      
+
       visit "/merchant"
 
       within ".pending-orders-#{@order1.id}" do

@@ -139,4 +139,40 @@ RSpec.describe "As an Admin" do
     expect(page).to_not have_button("Cancel Order")
   end
 
+  it "can see everything a merchant can see" do
+    admin = User.create(name: "Jim Bob Manager Extraordinaire",
+                       address: "2020 Whiskey River Blvd",
+                       city: "Bamaville",
+                       state: "AL",
+                       zip: "33675",
+                       email: "jimbobwoowoo@aol.com",
+                       password: "merica4lyfe",
+                       role: 2)
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+    pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+    regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
+    order_1 = regular_user.orders.create!(name: regular_user.name, address: regular_user.address, city: regular_user.city, state: regular_user.state, zip: regular_user.zip)
+    order_1.item_orders.create!(status: "pending", item: paper, price: paper.price, quantity: 1)
+    order_1.item_orders.create!(status: "pending", item: pencil, price: pencil.price, quantity: 12)
+    visit "/merchants"
+    click_on "Login"
+    fill_in :password, with: admin.password
+    fill_in :email, with: admin.email
+    click_on "Submit"
+    visit "/merchants"
+    click_on "Mike's Print Shop"
+    expect(current_path).to eq("/admin/merchants/#{mike.id}")
+    expect(page).to have_content(mike.name)
+    expect(page).to have_content(mike.address)
+    expect(page).to have_content(mike.city)
+    expect(page).to have_content(mike.state)
+    expect(page).to have_content(mike.zip)
+    expect(page).to have_link(order_1.id)
+    expect(page).to have_content(order_1.total_item_count(mike.id))
+    expect(page).to have_content(order_1.total_item_value(mike.id))
+
+  end
+
 end
