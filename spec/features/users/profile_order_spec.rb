@@ -39,8 +39,6 @@ RSpec.describe "As a registered user, when I visit my Profile Orders page" do
 
     click_on("Orders")
     expect(current_path).to eq('/profile/orders')
-
-    save_and_open_page
   end
 
 end
@@ -102,7 +100,6 @@ RSpec.describe "As a registered user, when I visit my Profile Orders page" do
 
     click_on("Order Number: #{@order_1.id}")
     expect(current_path).to eq("/orders/#{@order_1.id}")
-save_and_open_page
     expect(page).to have_content(@order_1.id)
     expect(page).to have_content(@order_1.created_at)
     expect(page).to have_content(@order_1.updated_at)
