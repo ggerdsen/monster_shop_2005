@@ -42,6 +42,9 @@
     </tr>
   <% end %>
 </table>
+<% unless @order.status == "shipped"  || @order.status == "cancelled" %>
+  <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :patch %></p>
+<% end %>
 
 <section id="grandtotal">
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
