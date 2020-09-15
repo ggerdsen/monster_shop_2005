@@ -11,7 +11,7 @@ class ReviewsController<ApplicationController
       redirect_to "/items/#{item.id}/reviews/new"
     else
       @item = Item.find(params[:item_id])
-      review = @item.reviews.create(review_params)
+      review = @item.reviews.new(review_params)
       if review.save
         flash[:success] = "Review successfully created"
         redirect_to "/items/#{@item.id}"
