@@ -19,6 +19,7 @@
       <% if merchant.disabled? %>
       <section class = "grid-item", id="merchant-<%= merchant.id %>">
         <h2><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></h2>
+        <p><%=button_to "Enable", "/admin/merchants/#{merchant.id}", method: :patch%></p>
       </section>
       <% end %>
     <% end %>
