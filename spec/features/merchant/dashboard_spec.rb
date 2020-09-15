@@ -56,5 +56,14 @@ RSpec.describe "Merchant Dashboard Show Page" do
         expect(page).to have_content(@order1.total_item_value(@meg.id))
       end
     end
+
+    it "I see a link to view my items and that link takes me to '/merchant/items'" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user1)
+
+      visit "/merchant"
+      click_on "My Items"
+
+      expect(current_path).to eql("/merchant/items")
+    end
   end
 end
