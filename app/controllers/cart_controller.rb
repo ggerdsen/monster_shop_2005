@@ -19,17 +19,17 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-  def remove_item
+  def destroy
     session[:cart].delete(params[:item_id])
     redirect_to '/cart'
   end
-
-  def modify_quantity
+  
+  def update
     if params[:modify] == "add"
       cart.add_quantity(params[:item_id]) unless cart.out_of_stock?(params[:item_id])
     elsif params[:modify] == "subtract"
       cart.subtract_quantity(params[:item_id])
-      return remove_item if cart.item_count(params[:item_id]) == 0
+      return destroy if cart.item_count(params[:item_id]) == 0
     end
     redirect_to '/cart'
   end
