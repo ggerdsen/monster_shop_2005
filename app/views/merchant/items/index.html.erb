@@ -1,10 +1,10 @@
 <% @merchant.items.each do |item| %>
 <section class='items-<%= item.id %>'>
-  <li>Name: <%= item.name %></li>
+  <h2>Name: <%= item.name %></h2>
   <li>Description: <%= item.description %></li>
   <li>Price: $<%= item.price %></li>
-  <%= image_tag(item.image) %>
   <li>Status: Active? <%= item.active? %></li>
   <li>Inventory: <%= item.inventory %></li>
+  <p><%= image_tag item.image, width: 200 %></p>
 </section>
 <% end %>
