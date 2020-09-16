@@ -27,9 +27,9 @@ RSpec.describe("Order Cancellation") do
     end
 
     it 'I can cancel an order' do
-      
+
       expect(@paper.inventory).to eq(3)
-        
+
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
@@ -45,42 +45,34 @@ RSpec.describe("Order Cancellation") do
       click_button "Create Order"
       order = Order.last
       visit "/orders/#{order.id}"
-      
-      paper = Item.last
-      
-      expect(paper.inventory).to eq(1)
-      
-      order.item_orders.each do |item|
-        expect(item.status).to eq("pending")
-      end
 
-      expect(order.status).to eq("pending")
-      
-      expect(page).to have_button("Cancel Order")
-      
-      click_button "Cancel Order"
-      
-      expect(current_path).to eq("/profile")
-      
-      order = Order.last
-      
+      paper = Item.last
+
+      expect(paper.inventory).to eq(1)
+
       order.item_orders.each do |item|
         expect(item.status).to eq("unfulfilled")
       end
-      
+
+      expect(order.status).to eq("pending")
+
+      expect(page).to have_button("Cancel Order")
+
+      click_button "Cancel Order"
+
+      expect(current_path).to eq("/profile")
+
+      order = Order.last
+
+      order.item_orders.each do |item|
+        expect(item.status).to eq("unfulfilled")
+      end
+
       expect(order.status).to eq("cancelled")
-      
+
       paper = Item.last
       expect(paper.inventory).to eq(3)
-      
+
       expect(page).to have_content("Your order has been cancelled")
     end
   end
-  
-  
-  
-  
-  
-  
-  
-  

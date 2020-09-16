@@ -40,21 +40,23 @@ RSpec.describe "Order Packaged" do
     end
 
   it ("Merchant User will change status to packaged") do
+    ItemOrder.destroy_all
+    @order = Order.first
+    @order.item_orders.create!(status: "unfulfilled", item: @tire, price: @tire.price, quantity: 3)
+
     visit "/merchants"
-    
+
     click_on "Login"
-    
+
     fill_in :email, with: @merchant_user.email
     fill_in :password, with: @merchant_user.password
     click_on "Submit"
-    
     visit "/merchant/orders/#{@order.id}"
-    
+
     expect(page).to have_button("Fulfill Item")
     expect(@order.status).to eq("pending")
-    
+
     click_on("Fulfill Item", match: :first)
-    
     @order = Order.first
     expect(page).to_not have_button("Fulfill Item")
     expect(page).to have_content("Item has been fulfilled")
