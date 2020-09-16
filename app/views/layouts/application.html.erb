@@ -21,7 +21,7 @@
       <%= link_to "Logout", "/logout", method: :delete %>
 
     <% elsif current_merchant? %>
-      <%= link_to "Merchant Dashboard", "/merchant/dashboard" %>
+      <%= link_to "Merchant Dashboard", "/merchant" %>
       <%= link_to "Profile", "/profile" %>
       <%= link_to "Logout", "/logout", method: :delete %>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
