@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#index'
     resources :merchants, only: [:index, :show, :update]
-    resources :users, only: [:index]
+    resources :users, only: [:index, :show]
+    get '/users/:id/orders', to: 'orders#index'
   end
 
   namespace :merchant do
