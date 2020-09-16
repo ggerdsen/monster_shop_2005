@@ -39,7 +39,7 @@
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
-        <td><%= button_to "Fulfill Item", "/merchant/orders/#{item_order.id}", method: :patch %></td>
+        <td><%= button_to "Fulfill Item", "/merchant/orders/#{@order.id}/items/#{item_order.item.id}/update", method: :patch %></td>
       </section>
     </tr>
   <% end %>

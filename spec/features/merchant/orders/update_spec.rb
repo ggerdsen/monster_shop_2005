@@ -53,11 +53,8 @@ RSpec.describe "Order Packaged" do
     click_on "Submit"
 
     visit "/merchant/orders/#{@order.id}"
-#save_and_open_page
     expect(page).to have_button("Fulfill Item")
 
-    #binding.pry
-    save_and_open_page
     click_on("Fulfill Item", match: :first)
     binding.pry
 
