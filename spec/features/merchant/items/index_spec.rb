@@ -21,9 +21,22 @@ RSpec.describe "As a merchant employee" do
         expect(page).to have_content("Description: #{@gator_tire.description}")
         expect(page).to have_content("Price: $#{@gator_tire.price}")
         expect(page).to have_css("img[src*='#{@gator_tire.image}']")
-        expect(page).to have_content("Status: Active? #{@gator_tire.active?}")
+        expect(page).to have_content("Active? #{@gator_tire.active?}")
         expect(page).to have_content("Inventory: #{@gator_tire.inventory}")
       end
+    end
+
+    it "I can click a link or button to deactivate items" do
+
+      visit "merchant/items"
+
+      within ".items-#{@gator_tire.id}" do
+        expect(page).to have_content("Active? true")
+        click_on "Deactivate"
+        expect(current_path).to eq("/merchant/items")
+        expect(page).to have_content("Active? false")
+      end
+      expect(page).to have_content("Item is deactivated")
     end
   end
 end
