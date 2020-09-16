@@ -52,7 +52,6 @@ RSpec.describe "Order Packaged" do
     it "can't fulfill an order if quantity in item_order is greater than item inventory" do
       @item_order1.update(quantity: 4524)
       visit "/merchant/orders/#{@order_1.id}"
-      save_and_open_page
       expect(page).to_not have_button("Fulfill Item")
       expect(page).to have_content("You cannot fulfill this item.")
     end
