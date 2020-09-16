@@ -87,7 +87,7 @@ RSpec.describe 'Cart show' do
 
       click_on "Create Order"
 
-      expect(ItemOrder.last.status).to eq("pending")
+      expect(ItemOrder.last.status).to eq("unfulfilled")
 
       order = Order.last
       expect(current_path).to eq("/profile/orders")
