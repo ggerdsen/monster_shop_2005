@@ -28,7 +28,7 @@ class OrdersController <ApplicationController
       render :new
     end
   end
-  
+
   def update
     order = Order.find(params[:order_id])
     order.update(status: "cancelled")

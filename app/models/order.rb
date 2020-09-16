@@ -56,5 +56,5 @@ class Order <ApplicationRecord
       item_to_restock.modify_item_inventory(item_to_restock, item.quantity, :increase)
     end
   end
-  
+
 end
