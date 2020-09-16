@@ -10,8 +10,10 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get '/', to: "dashboard#index"
-    patch "items/:id", to: "items#update_activation"
     resources :items, only: [:index]
+    resources :orders, only: [:show, :update]
+    patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
+    patch "items/:id", to: "items#update_activation"
   end
 
   get "/merchants", to: "merchants#index"
