@@ -9,6 +9,9 @@
   <br>
    <% if item.active? %>
         <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :patch %>
+        <% if item.item_orders.empty? %>
+          <br><p><%= link_to "Delete Item", "/merchant/items/#{item.id}", method: :delete %> (This item has never been ordered)</p>
+        <% end %>
       <% else %>
         <%= link_to "Activate", "/merchant/items/#{item.id}", method: :patch %>
       <% end  %>
