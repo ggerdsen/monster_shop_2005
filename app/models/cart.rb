@@ -47,7 +47,7 @@ class Cart
   def out_of_stock?(item_id)
     item_count(item_id) == Item.find(item_id).inventory
   end
-  
+
   def modify(order)
     items.each do |item,quantity|
       item.modify_item_inventory(item, quantity, :decrease)
@@ -55,7 +55,7 @@ class Cart
         item: item,
         quantity: quantity,
         price: item.price,
-        status: "pending"
+        status: "unfulfilled"
         })
     end
   end
