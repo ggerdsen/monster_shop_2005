@@ -248,7 +248,7 @@ RSpec.describe "As an Admin" do
       expect(item.active?).to eq(false)
     end
   end
-  
+
   it "can enable merchants" do
     admin = User.create(name: "Jim Bob Manager Extraordinaire",
                        address: "2020 Whiskey River Blvd",
@@ -275,7 +275,7 @@ RSpec.describe "As an Admin" do
     expect(page).to have_content(mike.name)
     expect(page).to have_content(meg.name)
     expect(page).to have_button("Disable")
-    
+
     within("#merchant-#{mike.id}") do
       click_on "Disable"
     end
@@ -287,7 +287,7 @@ RSpec.describe "As an Admin" do
       expect(page).to have_content(mike.name)
     end
     expect(page).to have_content("#{mike.name}'s account has been disabled.")
-  
+
     within("#merchant-#{mike.id}") do
       click_on "Enable"
     end
@@ -300,7 +300,7 @@ RSpec.describe "As an Admin" do
     end
     expect(page).to have_content("#{mike.name}'s account is now enabled.")
   end
-  
+
   it "can activate merchant's items when it is enabled" do
 
     admin = User.create(name: "Jim Bob Manager Extraordinaire",
@@ -341,5 +341,33 @@ RSpec.describe "As an Admin" do
     Item.all.each do |item|
       expect(item.active?).to eq(true)
     end
+  end
+
+  it "can see links, city, state, disable, and enable buttons for all merchants" do
+    admin = User.create(name: "Jim Bob Manager Extraordinaire",
+                       address: "2020 Whiskey River Blvd",
+                       city: "Bamaville",
+                       state: "AL",
+                       zip: "33675",
+                       email: "jimbobwoowoo@aol.com",
+                       password: "merica4lyfe",
+                       role: 2)
+    mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203, disabled: true)
+    visit "/merchants"
+    click_on "Login"
+    fill_in :password, with: admin.password
+    fill_in :email, with: admin.email
+    click_on "Submit"
+    visit "/admin"
+    click_on "View Merchants"
+    expect(page).to have_link(mike.name)
+    expect(page).to have_content(mike.city)
+    expect(page).to have_content(mike.state)
+    expect(page).to have_link(meg.name)
+    expect(page).to have_content(meg.city)
+    expect(page).to have_content(meg.state)
+    expect(page).to have_button("Disable")
+    expect(page).to have_button("Enable")
   end
 end
