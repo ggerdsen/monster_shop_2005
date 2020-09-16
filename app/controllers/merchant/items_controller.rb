@@ -31,8 +31,16 @@ class Merchant::ItemsController < Merchant::BaseController
     end
       redirect_to "/merchant/items"
   end
+  
+  def destroy
+    Item.find(params[:id]).delete
+    flash[:success] = "Item has been deleted"
+    redirect_to "/merchant/items"
+  end
+
   private
   def item_params
     params.permit(:name,:description,:price,:inventory,:image)
   end
+  
 end

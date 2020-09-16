@@ -30,8 +30,8 @@
     </tr>
   <% @order.item_orders.each do |item_order|%>
     <tr>
-    <section id = "item-order">
-
+    <section id = "item-order-for-item-<%= item_order.item.id %>">
+      <% if item_order.item.merchant_id == current_user.merchant_id %>
         <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p>
         <div class="thumbnail"><img id="thumbnail"  src=<%="#{item_order.item.image}"%> alt=<%= "#{item_order.item.name}" %>
         </div></td>
@@ -40,6 +40,14 @@
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
         <td><%= button_to "Fulfill Item", "/merchant/orders/#{item_order.id}", method: :patch %></td>
+        <% if item_order.status == "unfulfilled" && item_order.quantity <= item_order.item.inventory %>
+          <td><%= button_to "Fulfill Item", "/merchant/orders/#{@order.id}/items/#{item_order.item.id}/update", method: :patch %></td>
+        <% elsif item_order.status == "unfulfilled" && item_order.quantity > item_order.item.inventory %>
+        <td><p>You cannot fulfill this item.</p></td>
+        <% else %>
+        <td><p>Item Fulfilled</p></td>
+        <% end %>
+      <% end %>
       </section>
     </tr>
   <% end %>

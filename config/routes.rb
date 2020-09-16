@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     post '/items/new', to: "/merchant/items#new"
     resources :orders, only: [:show, :update]
     patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
-    patch "items/:id", to: "items#update_activation"
+    patch "/items/:id", to: "items#update_activation"
+    delete "/items/:id", to: "items#destroy"
   end
 
   get "/merchants", to: "merchants#index"

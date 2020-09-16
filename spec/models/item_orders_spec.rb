@@ -20,7 +20,6 @@ describe ItemOrder, type: :model do
       regular_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 0)
       order_1 = regular_user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       item_order_1 = order_1.item_orders.create!(status: "pending", item: tire, price: tire.price, quantity: 2)
-
       expect(item_order_1.subtotal).to eq(200)
     end
   end
