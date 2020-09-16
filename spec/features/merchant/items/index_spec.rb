@@ -21,7 +21,7 @@ RSpec.describe "As a merchant employee" do
         expect(page).to have_content("Description: #{@gator_tire.description}")
         expect(page).to have_content("Price: $#{@gator_tire.price}")
         expect(page).to have_css("img[src*='#{@gator_tire.image}']")
-        expect(page).to have_content("Status: #{@gator_tire.status}")
+        expect(page).to have_content("Status: Active? #{@gator_tire.active?}")
         expect(page).to have_content("Inventory: #{@gator_tire.inventory}")
       end
     end
