@@ -50,7 +50,6 @@ RSpec.describe("Order Creation") do
       new_order = Order.last
 
       expect(current_path).to eq("/orders/#{new_order.id}")
-save_and_open_page
       within '.shipping-address' do
         expect(page).to have_content(name)
         expect(page).to have_content(address)
