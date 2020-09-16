@@ -49,18 +49,21 @@ RSpec.describe "Order Packaged" do
       expect(ItemOrder.all.first.item.inventory).to eq(9)
     end
 
-#     User Story 50, Merchant fulfills part of an order
+    it "can't fulfill an order if quantity in item_order is greater than item inventory" do
+      @item_order1.update(quantity: 4524)
+      visit "/merchant/orders/#{@order_1.id}"
+      save_and_open_page
+      expect(page).to_not have_button("Fulfill Item")
+      expect(page).to have_content("You cannot fulfill this item.")
+    end
+
+#     User Story 51, Merchant cannot fulfill an order due to lack of inventory
 #
 # As a merchant employee
 # When I visit an order show page from my dashboard
 # For each item of mine in the order
-# If the user's desired quantity is equal to or less than my current inventory quantity for that item
-# And I have not already "fulfilled" that item:
-# - Then I see a button or link to "fulfill" that item
-# - When I click on that link or button I am returned to the order show page
-# - I see the item is now fulfilled
-# - I also see a flash message indicating that I have fulfilled that item
-# - the item's inventory quantity is permanently reduced by the user's desired quantity
-#
-# If I have already fulfilled this item, I see text indicating such.
+# If the user's desired quantity is greater than my current inventory quantity for that item
+# Then I do not see a "fulfill" button or link
+# Instead I see a notice next to the item indicating I cannot fulfill this item
+
 end
