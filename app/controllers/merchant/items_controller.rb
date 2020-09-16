@@ -4,22 +4,6 @@ class Merchant::ItemsController < Merchant::BaseController
     @merchant = Merchant.find(current_user.merchant_id)
   end
 
-  def new
-    #@merchant = Merchant.find(params[id])
-  end
-
-  def create
-    #@user = User.find(params[:merchant_id])
-    @merchant = Merchant.find(current_user.merchant_id)
-    item = @merchant.items.new(item_params)
-    if item.save
-      redirect_to "/merchant/items"
-    else
-      flash[:error] = item.errors.full_messages.to_sentence
-      render :new
-    end
-  end
-
   def update_activation
     item = Item.find(params[:id])
     if item.active?
@@ -37,10 +21,4 @@ class Merchant::ItemsController < Merchant::BaseController
     flash[:success] = "Item has been deleted"
     redirect_to "/merchant/items"
   end
-
-  private
-  def item_params
-    params.permit(:name,:description,:price,:inventory,:image)
-  end
-  
 end
