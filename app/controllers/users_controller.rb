@@ -55,10 +55,6 @@ class  UsersController < ApplicationController
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-  def user_info
-    params.permit(:name, :address, :city, :state, :zip)
-  end
-
   def password_params
     params.permit(:password, :password_confirmation)
   end
