@@ -37,4 +37,30 @@ RSpec.describe "Order Packaged" do
       expect(page).to have_content(@tire.price)
       expect(page).to have_content(@item_order1.quantity)
     end
+
+    it "can fulfill part of an order" do
+      visit "/merchant/orders/#{@order_1.id}"
+      within("#item-order-for-item-#{@tire.id}") do
+        click_on "Fulfill Item"
+      end
+      expect(current_path).to eq("/merchant/orders/#{@order_1.id}")
+      expect(page).to have_content("Item has been fulfilled")
+      expect(page).to have_content("Item Fulfilled")
+      expect(ItemOrder.all.first.item.inventory).to eq(9)
+    end
+
+#     User Story 50, Merchant fulfills part of an order
+#
+# As a merchant employee
+# When I visit an order show page from my dashboard
+# For each item of mine in the order
+# If the user's desired quantity is equal to or less than my current inventory quantity for that item
+# And I have not already "fulfilled" that item:
+# - Then I see a button or link to "fulfill" that item
+# - When I click on that link or button I am returned to the order show page
+# - I see the item is now fulfilled
+# - I also see a flash message indicating that I have fulfilled that item
+# - the item's inventory quantity is permanently reduced by the user's desired quantity
+#
+# If I have already fulfilled this item, I see text indicating such.
 end

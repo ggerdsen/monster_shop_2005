@@ -42,9 +42,9 @@ third_user = User.create!(name: "Scooby Doo", address: "133 Main St.", city: "De
 fourth_user = User.create!(name: "Jerry McGuire", address: "14 Harry St.", city: "Denver", state: "CO", zip: "80085", email: "fourth_user@email.com", password: "123", role: 0)
 merchant_user = User.create!(name: "James Bond", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "merchant_user@email.com", password: "123", role: 1, merchant_id: chris.id)
 order_1 = regular_user.orders.create!(name: regular_user.name, address: regular_user.address, city: regular_user.city, state: regular_user.state, zip: regular_user.zip)
-order_1.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 3)
-order_1.item_orders.create!(status: "fulfilled", item: paper, price: paper.price, quantity: 1)
-order_1.item_orders.create!(status: "fulfilled", item: pencil, price: pencil.price, quantity: 12)
+order_1.item_orders.create!(status: "unfulfilled", item: tire, price: tire.price, quantity: 3)
+order_1.item_orders.create!(status: "unfulfilled", item: paper, price: paper.price, quantity: 1)
+order_1.item_orders.create!(status: "unfulfilled", item: pencil, price: pencil.price, quantity: 12)
 
 order_2 = second_user.orders.create!(name: second_user.name, address: second_user.address, city: second_user.city, state: second_user.state, zip: second_user.zip, status: "packaged")
 order_2.item_orders.create!(status: "fulfilled", item: tire, price: tire.price, quantity: 2)
