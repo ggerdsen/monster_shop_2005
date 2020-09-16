@@ -23,7 +23,7 @@ RSpec.describe "Order Packaged" do
       click_on "Submit"
     end
 
-    it "" do
+    it "can view my merchant items on my order show page that are in a user's item order" do
       visit "/merchant/orders/#{@order_1.id}"
       expect(page).to have_content(@regular_user.name)
       expect(page).to have_content(@regular_user.address)
