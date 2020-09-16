@@ -51,7 +51,7 @@ class Order <ApplicationRecord
   end
 
   def restock_items
-    item_orders.each do |item, quantity|
+    item_orders.each do |item|
       item_to_restock = Item.find(item.item_id)
       item_to_restock.modify_item_inventory(item_to_restock, item.quantity, :increase)
     end

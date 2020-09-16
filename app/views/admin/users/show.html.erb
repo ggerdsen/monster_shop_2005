@@ -3,8 +3,6 @@
 <p><%= @user.address %></p>
 <p><%= @user.city + ", " + @user.state %></p>
 <p><%= @user.zip %></p>
-<p><%= link_to "Edit", "/profile/edit" %></p>
-<p><%= link_to "Edit Password", "/profile/password" %></p>
 <% if @user.orders.any? %>
-<p><%= link_to "My Orders", "/profile/orders" %></p>
+<p><%= link_to "#{@user.name}'s Orders", "/admin/users/#{@user.id}/orders" %></p>
 <% end %>
