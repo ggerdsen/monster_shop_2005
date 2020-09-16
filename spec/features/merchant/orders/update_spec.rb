@@ -21,6 +21,12 @@ RSpec.describe "Order Packaged" do
 
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@tire.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
 
       visit "/cart"
       click_on "Checkout"
@@ -41,23 +47,22 @@ RSpec.describe "Order Packaged" do
 
   it ("Merchant User will change status to packaged") do
     visit "/merchants"
-    
     click_on "Login"
-    
     fill_in :email, with: @merchant_user.email
     fill_in :password, with: @merchant_user.password
     click_on "Submit"
-    
+
     visit "/merchant/orders/#{@order.id}"
-    
+#save_and_open_page
     expect(page).to have_button("Fulfill Item")
-    expect(@order.status).to eq("pending")
-    
+
+    #binding.pry
+    save_and_open_page
     click_on("Fulfill Item", match: :first)
-    
-    @order = Order.first
-    expect(page).to_not have_button("Fulfill Item")
-    expect(page).to have_content("Item has been fulfilled")
-    expect(@order.status).to eq("packaged")
+    binding.pry
+
+
+    #expect(page).to have_content("packaged")
   end
+
 end
