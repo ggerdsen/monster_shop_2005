@@ -4,7 +4,7 @@
   <li>Description: <%= item.description %></li>
   <li>Price: $<%= item.price %></li>
   <%= image_tag(item.image) %>
-  <li>Status: <%= item.status %></li>
+  <li>Status: Active? <%= item.active? %></li>
   <li>Inventory: <%= item.inventory %></li>
 </section>
 <% end %>
