@@ -21,4 +21,27 @@ class Merchant::ItemsController < Merchant::BaseController
     flash[:success] = "Item has been deleted"
     redirect_to "/merchant/items"
   end
+  
+  def edit
+    @item = Item.find(params[:item_id])
+  end
+  
+  def update
+    @item = Item.find(params[:item_id])
+    updated = @item.updated_at
+    @item.update(item_params)
+    if @item.updated_at != updated
+      flash[:success] = "Item has been updated"
+      redirect_to "/merchant/items"
+    else
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+  
+  private
+  
+  def item_params
+   params.permit(:name,:description,:price,:inventory,:image)
+  end
 end
