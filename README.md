@@ -11,7 +11,6 @@
 #### [James Belta](https://github.com/JBelta)
 #### [Chris Allbritton](https://github.com/Callbritton)
 
-
 ## Background and Description
 
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models.
@@ -60,20 +59,6 @@ This project requires Ruby 2.5.3.
 - must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like github projects
 - must include a thorough README to describe their project
 
-
-## Permitted
-
-- use FactoryBot to speed up your test development
-- use "rails generators" to speed up your app development
-
-## Not Permitted
-
-- do not use JavaScript for pagination or sorting controls
-
-## Permission
-
-- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
-
 ## User Roles
 
 1. Visitor - this type of user is anonymously browsing our site and is not logged in
@@ -87,29 +72,6 @@ This project requires Ruby 2.5.3.
 2. 'packaged' means all merchants have fulfilled their items for the order, and has been packaged and ready to ship
 3. 'shipped' means an admin has 'shipped' a package and can no longer be cancelled by a user
 4. 'cancelled' - only 'pending' and 'packaged' orders can be cancelled
-
-## Timeframe
-The following is an anticipated timeline of how these stories should be completed in order to be finished by 4/16/20 at 6pm.
-
-* Tuesday: Story 1 && Story 10 - Story 12
-* Wednesday: Story 2 - Story 9, Story 13 - Story 16
-* Thursday: Story 17 - Story 22
-* Friday: Story 23 - Story 26
-* Saturday: Story 27 - Story 31
-* Sunday: Story 32 - Story 37
-* Monday: Story 38 - Story 41
-* Tuesday: Story 42 - Story 48
-* Wednesday: Story 49 - Story 51
-* Thursday: Story 52 - 54
-
-
-## Not Everything can be FULLY Deleted
-
-In the user stories, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content, and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders which are disabled cannot be processed, and so on).
-
-Disabled content should also be restricted from showing up in the statistics pages. For example: if an item is disabled, it should not appear in a list of "popular items".
-
-Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
 
 ## Deploying to Heroku
 
@@ -1117,14 +1079,3 @@ If the user's desired quantity is greater than the merchant's current inventory 
 Then I do not see a "fulfill" button or link
 Instead I see a big red notice next to the item indicating I cannot fulfill this item
 ```
-
-
-
-## Rubric
-
-| | **Feature Completeness** | **Rails** | **ActiveRecord** | **Testing and Debugging** | **Documentation** |
-| --- | --- | --- | --- | --- | --- |
-| **4: Exceptional**  | All User Stories 100% complete including all sad paths and edge cases, and some extension work completed | Students implement strategies not discussed in class to effectively organize code and adhere to MVC. | Highly effective and efficient use of ActiveRecord beyond what we've taught in class. Even `.each` calls will not cause additional database lookups. | Very clear Test Driven Development. Test files are extremely well organized and nested. Students utilize `before :each` blocks. 100% coverage for features and models. Close to all edge cases are accounted for.| Final project has a well written README with pictures, schema design, code snippets, contributors names linked to their github profile, heroku link, and implementation instructions. |
-| **3: Passing** | Students complete all User Stories. No more than 2 Stories fail to correctly implement sad path and edge case functionality. | Students use the principles of MVC to effectively organize code. Students can defend any of their design decisions. Students limit access to authorized users. | ActiveRecord is used in a clear and effective way to read/write data using no Ruby to process data. | 100% coverage for models. 98% coverage for features. Tests are well written and meaningful. | Students have a README with thorough implementation instructions and description of content. |
-| **2: Passing with Concerns** | Students complete all but 1 - 3 User Stories | Students utilize MVC to organize code, but cannot defend some of their design decisions. Or some functionality is not limited to the appropriately authorized users. | Ruby is used to process data that could use ActiveRecord instead. | Feature test coverage between 90% and 98%, or model test coverage below 100%, or tests are not meaningfully written or have an unclear objective. | Students have a README but it is not thorough in describing the implementation or content of the project. |
-| **1: Failing** | Students fail to complete 4 or more User Stories | Students do not effectively organize code using MVC. Or students do not authorize users. | Ruby is used to process data more often than ActiveRecord | Below 90% coverage for either features or models. | Students did not create their own README. |
