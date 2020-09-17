@@ -5,11 +5,10 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
-    #@merchant = Merchant.find(params[id])
+
   end
 
   def create
-    #@user = User.find(params[:merchant_id])
     @merchant = Merchant.find(current_user.merchant_id)
     item = @merchant.items.new(item_params)
     if item.save
