@@ -54,7 +54,6 @@ RSpec.describe "As a visitor" do
 
     expect(User.count).to eq(0)
     expect(page).to have_content("Zip can't be blank")
-
   end
 
   it "Returns me to form if registration form is missing details" do
@@ -113,13 +112,6 @@ RSpec.describe "As a visitor" do
     expect(page).to have_field(:state, with: 'CO')
     expect(page).to have_field(:zip, with: '80444')
 
-    # #expect(page).to have_content("Garrett James Drew-Chris")
-    # expect(page).to have_content("123 Main St.")
-    # expect(page).to have_content("Denver")
-    # expect(page).to have_content("CO")
-    # expect(page).to have_content("80444")
-
-
     expect(current_path).to eq("/register")
 
     expect(page).to have_content("Email has already been taken")
@@ -151,7 +143,5 @@ RSpec.describe "As a visitor" do
     expect(page).to have_content(@regular_user.zip)
     expect(page).to have_content(@regular_user.email)
     expect(page).to have_link("Edit")
-
-
   end
 end

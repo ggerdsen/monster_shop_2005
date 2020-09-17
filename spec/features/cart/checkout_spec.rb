@@ -97,6 +97,7 @@ RSpec.describe 'Cart show' do
       expect(page).to have_content("Last Updated At: #{order.updated_at}")
       expect(page).to have_content("Order Status: #{order.status}")
       expect(page).to have_content("Grand Total of Order: $#{order.grandtotal}")
+
       within '.topnav' do
         expect(page).to have_content("Cart: 0")
       end

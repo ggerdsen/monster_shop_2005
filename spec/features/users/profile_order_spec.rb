@@ -12,6 +12,7 @@ RSpec.describe "As a registered user, when I visit my Profile Orders page" do
     visit "/"
 
     @Order_1 = @regular_user.orders.create(name: @regular_user.name, address: @regular_user.address, city: @regular_user.city, state: @regular_user.state, zip: @regular_user.zip)
+
     visit '/login'
 
     fill_in :email, with: "#{@regular_user.email}"
@@ -27,22 +28,8 @@ RSpec.describe "As a registered user, when I visit my Profile Orders page" do
     click_on("Orders")
     expect(current_path).to eq('/profile/orders')
   end
-
 end
-require "rails_helper"
 
-#As a registered user
-#When I visit my Profile Orders page
-#And I click on a link for order's show page
-#My URL route is now something like "/profile/orders/15"
-#I see all information about the order, including the following information:
-#- the ID of the order
-#- the date the order was made
-#- the date the order was last updated
-#- the current status of the order
-#- each item I ordered, including name, description, thumbnail, quantity, price and #subtotal
-#- the total quantity of items in the whole order
-#- the grand total of all items for that order
 
 RSpec.describe "As a registered user, when I visit my Profile Orders page" do
 

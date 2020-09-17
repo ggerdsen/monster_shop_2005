@@ -11,8 +11,6 @@ RSpec.describe("Order Creation") do
 
       merchant_user = User.create!(name: "Harry Richard", address: "1234 Bland St.", city: "Denver", state: "CO", zip: "80085", email: "regular_user@email.com", password: "123", role: 1, merchant_id: @meg.id)
 
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
       visit "/items"
       click_on "Login"
       fill_in :email, with: merchant_user.email
@@ -109,7 +107,5 @@ RSpec.describe("Order Creation") do
       expect(page).to have_content("Please complete address form to create an order.")
       expect(page).to have_button("Create Order")
     end
-
-
   end
 end

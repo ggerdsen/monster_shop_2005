@@ -9,22 +9,22 @@ describe "As a registered user" do
     @ostrich_tire = @meg.items.create(name: "Ostrichskins", description: "Absolutely massive!", price: 140, image: "https://i.ebayimg.com/images/g/2i8AAOSwnWFenp6f/s-l640.jpg", inventory: 5)
 
     @user1 = User.create(name: "Jim Bob",
-                        address: "2020 Whiskey River Blvd",
-                        city: "Bamaville",
-                        state: "AL",
-                        zip: "33675",
-                        email: "jimbobwoowoo@aol.com",
-                        password: "merica4lyfe",
-                        role: 0)
+                         address: "2020 Whiskey River Blvd",
+                         city: "Bamaville",
+                         state: "AL",
+                         zip: "33675",
+                         email: "jimbobwoowoo@aol.com",
+                         password: "merica4lyfe",
+                         role: 0)
 
     @user2 = User.create(name: "Billy Bob",
-                        address: "2020 Whiskey River Blvd",
-                        city: "Bamaville",
-                        state: "AL",
-                        zip: "33675",
-                        email: "billybob@aol.com",
-                        password: "merica4lyfe!",
-                        role: 0)
+                         address: "2020 Whiskey River Blvd",
+                         city: "Bamaville",
+                         state: "AL",
+                         zip: "33675",
+                         email: "billybob@aol.com",
+                         password: "merica4lyfe!",
+                         role: 0)
     end
 
   it "When I have orders placed in the system I see a link called 'My Orders'" do

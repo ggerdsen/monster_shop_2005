@@ -75,6 +75,5 @@ describe Merchant, type: :model do
       @meg.activate_items
       expect(@meg.items.find(@tire.id).active?).to eq(true)
     end
-
   end
 end
