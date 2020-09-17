@@ -49,8 +49,31 @@ RSpec.describe "As a merchant employee" do
     expect(page).to have_content(new_item.name)
     expect(page).to have_content(new_item.price)
     expect(page).to have_content(new_item.description)
-  save_and_open_page
+
     expect(page).to have_xpath("//img[@src='#{new_item.image}']")
     expect(page).to have_content(new_item.inventory)
+  end
+
+  it "See's a flash message if missing any data except an image" do
+    Item.destroy_all
+    click_on("Create Item")
+    expect(current_path).to eq('/merchant/items/new')
+
+    name = "Handl Bars"
+    price = 27
+    description = "Get A Grip!!"
+    image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
+    inventory = 25
+
+    fill_in :name, with: name
+    fill_in :price, with: price
+    fill_in :description, with: ""
+    fill_in :image, with: image_url
+    fill_in :inventory, with: inventory
+    click_button "Create Item"
+
+    expect(current_path).to eq('/merchant/items')
+    expect(Item.count).to eq(0)
+    expect(page).to have_content("Description can't be blank")
   end
 end
