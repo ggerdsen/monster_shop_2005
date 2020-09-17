@@ -2,7 +2,7 @@
 <section id="packaged">
 <h2>Packaged Orders</h2>
 <% Order.packaged.each do |order| %>
-  <h3><%= link_to "#{order.user.name}", "/admin/profile/#{order.user.id}" %></h3>
+  <h3><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></h3>
   <p>Order ID: <%= order.id %></p>
   <p>Order Created: <%= order.created_at.strftime("%m-%d-%Y") %></p>
   <p><%= link_to "Ship Order", "/orders/#{order.id}", method: :put %></p>
@@ -11,7 +11,7 @@
 <section id="pending">
 <h2>Pending Orders</h2>
 <% Order.pending.each do |order| %>
-  <h3><%= link_to "#{order.user.name}", "/admin/profile/#{order.user.id}" %></h3>
+  <h3><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></h3>
   <p>Order ID: <%= order.id %></p>
   <p>Order Created: <%= order.created_at.strftime("%m-%d-%Y") %></p>
 <% end %>
@@ -19,7 +19,7 @@
 <section id="shipped">
 <h2>Shipped Orders</h2>
 <% Order.shipped.each do |order| %>
-  <h3><%= link_to "#{order.user.name}", "/admin/profile/#{order.user.id}" %></h3>
+  <h3><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></h3>
   <p>Order ID: <%= order.id %></p>
   <p>Order Created: <%= order.created_at.strftime("%m-%d-%Y") %></p>
 <% end %>
@@ -27,7 +27,7 @@
 <section id="cancelled">
 <h2>Cancelled Orders</h2>
 <% Order.cancelled.each do |order| %>
-  <h3><%= link_to "#{order.user.name}", "/admin/profile/#{order.user.id}" %></h3>
+  <h3><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></h3>
   <p>Order ID: <%= order.id %></p>
   <p>Order Created: <%= order.created_at.strftime("%m-%d-%Y") %></p>
 <% end %>
