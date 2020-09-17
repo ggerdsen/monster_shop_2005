@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
     patch "/items/:id", to: "items#update_activation"
     delete "/items/:id", to: "items#destroy"
+    get "/items/:item_id/edit", to: "items#edit"
+    patch "/items/:item_id/edit", to: "items#update"
   end
 
   get "/merchants", to: "merchants#index"
