@@ -5,7 +5,6 @@ class Merchant::ItemsController < Merchant::BaseController
   end
 
   def new
-
   end
 
   def create
@@ -17,7 +16,6 @@ class Merchant::ItemsController < Merchant::BaseController
       flash[:error] = item.errors.full_messages.to_sentence
       render :new
     end
-  end
 
   def update_activation
     item = Item.find(params[:id])
@@ -30,8 +28,10 @@ class Merchant::ItemsController < Merchant::BaseController
     end
       redirect_to "/merchant/items"
   end
-  private
-  def item_params
-    params.permit(:name,:description,:price,:inventory,:image)
+  
+  def destroy
+    Item.find(params[:id]).delete
+    flash[:success] = "Item has been deleted"
+    redirect_to "/merchant/items"
   end
 end

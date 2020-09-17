@@ -3,18 +3,18 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index'
-    resources :merchants, only: [:index, :show, :new, :update]
+    resources :merchants, only: [:index, :show, :update]
     resources :users, only: [:index, :show]
     get '/users/:id/orders', to: 'orders#index'
   end
 
   namespace :merchant do
     get '/', to: "dashboard#index"
-    resources :items, only: [:index, :show, :create, :new]
-    post '/items/new', to: "/merchant/items#new"
+    resources :items, only: [:index]
     resources :orders, only: [:show, :update]
     patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
-    patch "items/:id", to: "items#update_activation"
+    patch "/items/:id", to: "items#update_activation"
+    delete "/items/:id", to: "items#destroy"
   end
 
   get "/merchants", to: "merchants#index"

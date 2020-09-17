@@ -1,11 +1,20 @@
 # Monster Shop
-BE Mod 2 Week 4/5 Group Project
+### BE Mod 2 Week 4/5 Group Project
+
+#### [Heroku Deployment](https://monster-shop-2005.herokuapp.com/)
+#### [Github Repo](https://github.com/Callbritton/monster_shop_2005/)
+
+### Development Team
+
+#### [Drew Williams](https://github.com/drewwilliams5280)
+#### [Garrett Gerdsen](https://github.com/ggerdsen)
+#### [James Belta](https://github.com/JBelta)
+#### [Chris Allbritton](https://github.com/Callbritton)
+
 
 ## Background and Description
 
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models.
-
-Students will be put into 3 or 4 person groups to complete the project.
 
 ## Setup
 
@@ -18,8 +27,12 @@ This project requires Ruby 2.5.3.
     * `rails db:create`
     * `rails db:migrate`
     * `rails db:seed`
-* Run the test suite with `bundle exec rspec`. There should be 99 passing tests.
+* Run the test suite with `bundle exec rspec`. 
 * Run your development server with `rails s`. Visit [localhost:3000/merchants](http://localhost:3000/merchants) to see the app in action.
+
+## Schema
+
+<img width="800" height="600" alt="Schema Light Screenshot" src="/app/assets/images/monster_shop_group_schema_light0.png">
 
 ## Learning Goals
 
@@ -46,6 +59,7 @@ This project requires Ruby 2.5.3.
 - all controller and model code must be tested via feature tests and model tests, respectively
 - must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like github projects
 - must include a thorough README to describe their project
+
 
 ## Permitted
 
