@@ -11,20 +11,16 @@
       <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
       <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
       <%= link_to "/items/#{item.id}" do %>
-        <%= image_tag item.image %>
+         <img style="max-width: 60px; max-height: 60px" src= <%= item.image %>>
       <% end %>
       <p> <%= item.description unless @merchant%> </p>
       <p>Price: <%=number_to_currency(item.price) %> </p>
       <p>Inventory: <%= item.inventory %> </p>
-      <% if !@merchant %>
-      <% end %>
         <p>Active</p>
-      <% else %>
-        <p>Inactive</p>
+      </section>
       <% end %>
-    </section>
     <% end %>
-</section>
+  </section>
 <section class="item_statistics">
   <section id="most-popular-items">
     <h3>Most Popular Items:</h3>

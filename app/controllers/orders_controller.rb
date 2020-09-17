@@ -1,7 +1,6 @@
 class OrdersController <ApplicationController
 
   def new
-
   end
 
   def index
@@ -43,7 +42,6 @@ class OrdersController <ApplicationController
     order.update(status: "shipped")
     redirect_to "/admin"
   end
-
 
   private
 

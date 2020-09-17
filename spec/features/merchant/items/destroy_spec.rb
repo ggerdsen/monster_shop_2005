@@ -17,7 +17,6 @@ RSpec.describe "As a merchant employee" do
       @order3 = @user1.orders.create!(id: 3, name: "Jim", address: "2020 Whiskey River Blvd", city: "Bamaville", state: "AL", zip: 33675)
       @order3.item_orders.create!(order_id: @order3.id, item: @zebra_tire, quantity: 5, price: @zebra_tire.price, status: "pending")
 
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user1)
     end
 
@@ -26,20 +25,20 @@ RSpec.describe "As a merchant employee" do
       visit "/merchant/items"
 
       expect(page).to have_content("Name: #{@gator_tire.name}")
-      
+
       within ".items-#{@snake_tire.id}" do
         expect(page).to_not have_content("Delete Item")
       end
-      
+
       within ".items-#{@zebra_tire.id}" do
         expect(page).to_not have_content("Delete Item")
       end
-      
+
       within ".items-#{@gator_tire.id}" do
         expect(page).to have_content("Delete Item")
         click_on "Delete Item"
       end
-      
+
       expect(current_path).to eq("/merchant/items")
       expect(page).to_not have_content("Name: #{@gator_tire.name}")
 
@@ -47,12 +46,3 @@ RSpec.describe "As a merchant employee" do
     end
   end
 end
-# User Story 44, Merchant deletes an item
-#
-# As a merchant employee
-# When I visit my items page
-# I see a button or link to delete the item next to each item that has never been ordered
-# When I click on the "delete" button or link for an item
-# I am returned to my items page
-# I see a flash message indicating this item is now deleted
-# I no longer see this item on the page

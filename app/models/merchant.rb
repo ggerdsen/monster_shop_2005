@@ -45,5 +45,4 @@ class Merchant <ApplicationRecord
       item.update(active?: true)
     end
   end
-
 end
