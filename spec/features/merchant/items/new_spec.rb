@@ -68,10 +68,9 @@ RSpec.describe "As a merchant employee" do
     fill_in :name, with: name
     fill_in :price, with: price
     fill_in :description, with: ""
-    #fill_in :image, with: ""
+    fill_in :image, with: ""
     fill_in :inventory, with: inventory
     click_button "Create Item"
-save_and_open_page
     expect(current_path).to eq('/merchant/items')
     expect(Item.count).to eq(0)
     expect(page).to have_content("Description can't be blank and Price must be greater than 0")

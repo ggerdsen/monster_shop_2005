@@ -10,7 +10,6 @@ class Merchant::ItemsController < Merchant::BaseController
  def create
   @merchant = Merchant.find(current_user.merchant_id)
   @item = @merchant.items.new(item_params)
-  binding.pry
    if @item.save
      redirect_to "/merchant/items"
    else
