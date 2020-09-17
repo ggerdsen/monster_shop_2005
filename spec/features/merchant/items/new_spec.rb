@@ -59,8 +59,8 @@ RSpec.describe "As a merchant employee" do
     click_on("Create Item")
     expect(current_path).to eq('/merchant/items/new')
 
-    name = "Handl Bars"
-    price = 27
+    name = "Handle Bars"
+    price = 0.00
     description = "Get A Grip!!"
     image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
     inventory = 25
@@ -68,12 +68,13 @@ RSpec.describe "As a merchant employee" do
     fill_in :name, with: name
     fill_in :price, with: price
     fill_in :description, with: ""
-    fill_in :image, with: image_url
+    #fill_in :image, with: ""
     fill_in :inventory, with: inventory
     click_button "Create Item"
-
+save_and_open_page
     expect(current_path).to eq('/merchant/items')
     expect(Item.count).to eq(0)
-    expect(page).to have_content("Description can't be blank")
+    expect(page).to have_content("Description can't be blank and Price must be greater than 0")
+
   end
 end

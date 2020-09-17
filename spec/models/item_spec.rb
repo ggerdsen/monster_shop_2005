@@ -5,7 +5,6 @@ describe Item, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :description }
     it { should validate_presence_of :price }
-    it { should validate_presence_of :image }
     it { should validate_presence_of :inventory }
     it { should validate_inclusion_of(:active?).in_array([true,false]) }
   end
@@ -105,7 +104,7 @@ describe Item, type: :model do
         expect(Item.most_popular_items.to_a).to eql([@ostrich_tire, @snake_tire, @zebra_tire, @tire, @new_toy])
         expect(Item.least_popular_items.to_a).to eql([@pull_toy, @chew_toy, @old_toy, @new_toy, @tire])
       end
-      
+
       it "can increase or decrease a merchant's item quantity" do
         expect(@dog_bone.inventory).to eq(210)
         @dog_bone.modify_item_inventory(@dog_bone, 3, :decrease)

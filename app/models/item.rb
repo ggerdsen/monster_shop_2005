@@ -42,14 +42,5 @@ class Item <ApplicationRecord
       new_quantity = (item.inventory + quantity)
       item.update(inventory: new_quantity)
     end
-
-    def can_create_item?
-      self.each do |key, value|
-          if key == :image
-            skip
-          end
-          value != "" || nil
-      end
-    end
   end
 end
