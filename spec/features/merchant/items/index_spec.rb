@@ -25,6 +25,7 @@ RSpec.describe "As a merchant employee" do
         expect(page).to have_content("Inventory: #{@gator_tire.inventory}")
       end
     end
+    
 
     it "I can click a link or button to deactivate items" do
 
