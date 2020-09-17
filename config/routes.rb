@@ -68,5 +68,4 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get "/", to: "home#index"
-
 end

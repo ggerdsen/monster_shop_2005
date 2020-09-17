@@ -4,7 +4,7 @@ describe User do
   describe "relationships" do
     it {should have_many :orders}
   end
-  
+
   describe "validations" do
     it {should validate_presence_of :name}
     it {should validate_presence_of :address}
@@ -19,13 +19,13 @@ describe User do
   describe "roles" do
     it "can be created as a default user" do
       user = User.create(name: "Jim Bob",
-                           address: "2020 Whiskey River Blvd",
-                           city: "Bamaville",
-                           state: "AL",
-                           zip: "33675",
-                           email: "jimbobwoowoo@aol.com",
-                           password: "merica4lyfe",
-                           role: 0)
+                         address: "2020 Whiskey River Blvd",
+                         city: "Bamaville",
+                         state: "AL",
+                         zip: "33675",
+                         email: "jimbobwoowoo@aol.com",
+                         password: "merica4lyfe",
+                         role: 0)
 
       expect(user.role).to eq("default")
       expect(user.default?).to be_truthy

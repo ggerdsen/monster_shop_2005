@@ -1,7 +1,6 @@
 class  UsersController < ApplicationController
 
   def new
-
   end
 
   def create
@@ -58,5 +57,4 @@ class  UsersController < ApplicationController
   def password_params
     params.permit(:password, :password_confirmation)
   end
-
 end

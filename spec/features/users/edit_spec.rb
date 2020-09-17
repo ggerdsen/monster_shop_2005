@@ -71,7 +71,9 @@ RSpec.describe "As a user" do
     expect(current_path).to eq('/profile/password')
     fill_in :password, with: "new_password"
     fill_in :password_confirmation, with: "new_password"
+
     click_on "Submit"
+    
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Your password has been updated")
 
@@ -85,7 +87,9 @@ RSpec.describe "As a user" do
     expect(current_path).to eq('/profile/password')
     fill_in :password, with: "new_password"
     fill_in :password_confirmation, with: "new_passworddd"
+
     click_on "Submit"
+
     expect(current_path).to eq('/profile/password')
     expect(page).to have_content("Password confirmation doesn't match Password")
 
@@ -95,6 +99,7 @@ RSpec.describe "As a user" do
 
     visit '/profile'
     click_on 'Edit'
+
     fill_in :name, with: 'Spud Nugget'
     fill_in :address, with: '222 Blvd.'
     fill_in :city, with: 'Tucson'
@@ -103,10 +108,10 @@ RSpec.describe "As a user" do
     fill_in :email, with: @second_user.email
     fill_in :password, with: @regular_user.password
     fill_in :password_confirmation, with: @regular_user.password
+
     click_on "Submit"
+
     expect(current_path).to eq('/profile/edit')
     expect(page).to have_content("Email has already been taken")
-
   end
-
 end

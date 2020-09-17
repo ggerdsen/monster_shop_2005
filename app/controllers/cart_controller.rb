@@ -23,7 +23,7 @@ class CartController < ApplicationController
     session[:cart].delete(params[:item_id])
     redirect_to '/cart'
   end
-  
+
   def update
     if params[:modify] == "add"
       cart.add_quantity(params[:item_id]) unless cart.out_of_stock?(params[:item_id])
@@ -33,6 +33,4 @@ class CartController < ApplicationController
     end
     redirect_to '/cart'
   end
-
-
 end
