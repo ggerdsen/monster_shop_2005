@@ -5,7 +5,6 @@ describe Item, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :description }
     it { should validate_presence_of :price }
-    it { should validate_presence_of :image }
     it { should validate_presence_of :inventory }
     it { should validate_inclusion_of(:active?).in_array([true,false]) }
   end
@@ -47,6 +46,7 @@ describe Item, type: :model do
                                   city: "Bamaville",
                                   state: "AL",
                                   zip: "33675",
+
                                   email: "jimbobwoowoo@aol.com",
                                   password: "merica4lyfe",
                                   role: 0)
@@ -79,6 +79,7 @@ describe Item, type: :model do
       ItemOrder.create(status: "pending", order_id: @order.id, item: @zebra_tire, quantity: 16, price: @zebra_tire.price)
       ItemOrder.create(status: "pending", order_id: @order.id, item: @snake_tire, quantity: 18, price: @snake_tire.price)
       ItemOrder.create(status: "pending", order_id: @order.id, item: @ostrich_tire, quantity: 20, price: @ostrich_tire.price)
+
     end
 
 

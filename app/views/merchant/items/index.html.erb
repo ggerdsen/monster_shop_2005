@@ -5,7 +5,11 @@
   <li>Price: $<%= item.price %></li>
   <li>Active: <%= item.active? %></li>
   <li>Inventory: <%= item.inventory %></li>
+  <%if item.image == "" %>
+  <p><%= image_tag "coming_soon.jpeg" %></p>
+  <% else %>
   <p><%= image_tag item.image, width: 200 %></p>
+  <% end  %>
   <br>
    <% if item.active? %>
         <%= link_to "Deactivate", "/merchant/items/#{item.id}", method: :patch %>

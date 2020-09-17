@@ -9,11 +9,11 @@ class Merchant::ItemsController < Merchant::BaseController
 
  def create
   @merchant = Merchant.find(current_user.merchant_id)
-  item = @merchant.items.new(item_params)
-   if item.save
+  @item = @merchant.items.new(item_params)
+   if @item.save
      redirect_to "/merchant/items"
    else
-     flash[:error] = item.errors.full_messages.to_sentence
+     flash[:error] = @item.errors.full_messages.to_sentence
      render :new
    end
  end
@@ -33,7 +33,7 @@ class Merchant::ItemsController < Merchant::BaseController
  def edit
    @item = Item.find(params[:item_id])
  end
-  
+
  def update
    @item = Item.find(params[:item_id])
    updated = @item.updated_at
@@ -46,13 +46,13 @@ class Merchant::ItemsController < Merchant::BaseController
      render :edit
    end
  end
-  
+
  def destroy
   Item.find(params[:id]).delete
   flash[:success] = "Item has been deleted"
   redirect_to "/merchant/items"
  end
- 
+
  private
  def item_params
    params.permit(:name,:description,:price,:inventory,:image)
