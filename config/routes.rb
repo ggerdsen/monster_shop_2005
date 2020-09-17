@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :merchants, only: [:index, :show, :update]
     resources :users, only: [:index, :show]
     get '/users/:id/orders', to: 'orders#index'
+    get '/users/:user_id/orders/:order_id', to: 'orders#show'
   end
 
   namespace :merchant do
