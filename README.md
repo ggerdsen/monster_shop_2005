@@ -1,7 +1,7 @@
 # Monster Shop
 ### BE Mod 2 Week 4/5 Group Project
 
-#### [Heroku Deployment](https://monster-shop-2005.herokuapp.com/)
+#### [Heroku Deployment](https://monstershop2006.herokuapp.com/)
 #### [Github Repo](https://github.com/Callbritton/monster_shop_2005/)
 
 ### Development Team
