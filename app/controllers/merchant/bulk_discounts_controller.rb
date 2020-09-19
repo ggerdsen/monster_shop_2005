@@ -29,7 +29,7 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
     updated = discount.updated_at
     discount.update(discount_params)
     if discount.updated_at != updated
-      flash[:success] = "Discount Updated: #{discount_params[:title]} #{discount_params[:percent_discount]}% off of a group of like items when you purchase #{discount_params[:minimum_item_quantity]}!"
+      flash[:success] = "Discount Updated: #{discount_params[:title]} #{discount_params[:percent_discount]}% off of a group of like items when you purchase #{discount_params[:minimum_item_quantity]} or more!"
       redirect_to "/merchant"
     else
       flash[:error] = @item.errors.full_messages.to_sentence
