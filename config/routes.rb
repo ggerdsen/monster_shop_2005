@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get "/bulk_discounts/new", to: "bulk_discounts#new"
     get "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#edit"
     patch "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#update"
+    delete "/bulk_discounts/:discount_id/delete", to: "bulk_discounts#destroy"
     get "/bulk_discounts/", to: "bulk_discounts#index"
     post "/bulk_discounts", to: "bulk_discounts#create"
     

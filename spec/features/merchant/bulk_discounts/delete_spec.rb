@@ -39,40 +39,30 @@ RSpec.describe "As a merchant employee" do
 
   end
   
-  it "I see a link to edit discounts on a merchant's bulk discount index" do
+  it "I see a link to delete discounts on a merchant's bulk discount index" do
+    
+    visit "/merchants/#{@meg.id}/items"
+
+    expect(page).to have_content("Labor Day Sale! 25% off a group of like items when you purchase 5 or more!")
+    
+    visit "/merchant"
     
     click_link "Set My Discounts"
     
     expect(current_path).to eq("/merchant/bulk_discounts")
     
     expect(page).to have_content(BulkDiscount.last.title)
+    expect(BulkDiscount.last).to_not eq(nil)
     expect(BulkDiscount.last.title).to eq("Labor Day Sale!")
     expect(BulkDiscount.last.minimum_item_quantity).to eq(5)
     expect(BulkDiscount.last.percent_discount).to eq(25.0)
     
-    click_link "Edit Discount"
+    click_link "Delete Discount"
     
-    expect(current_path).to eq("/merchant/bulk_discounts/#{BulkDiscount.last.id}/edit")
-    
-    fill_in :title, with: "Edited Title!"
-    fill_in :minimum_item_quantity, with: "1"
-    fill_in :percent_discount, with: "1"
-    
-    click_on "Submit Changes For This Discount"
-    
-    
-    expect(current_path).to eq("/merchant")
-    expect(page).to have_content("Discount Updated: Edited Title! 1% off of a group of like items when you purchase 1 or more!")
-    expect(page).to have_content(BulkDiscount.last.title)
-    expect(BulkDiscount.last.title).to eq("Edited Title!")
-    expect(BulkDiscount.last.minimum_item_quantity).to eq(1)
-    expect(BulkDiscount.last.percent_discount).to eq(1.0)
-    
-    
-    visit "/merchants/#{@meg.id}/items"
+    expect(current_path).to eq("/merchant/bulk_discounts")
 
-    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1 or more!")
-
+    expect(BulkDiscount.last).to eq(nil)
+  
     within ".topnav" do
       click_link("Logout")
     end
@@ -86,7 +76,16 @@ RSpec.describe "As a merchant employee" do
     click_on "Submit"
 
     visit "/merchants/#{@meg.id}/items"
-    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1 or more!")
+    expect(page).to_not have_content("Edited Title! 1% off a group of like items when you purchase 1")
   
   end
 end
+
+
+# Final story 3
+# As a merchant
+# When I visit my dashboard (/merchant/dashboard), I see a link to manage discounts
+# When I click this link, is see list of my current discounts
+# Next to each, I see a link to delete that discount
+# After clicking, my discount is destroyed
+# After deleting, I no long see this discounts' terms on the (/merchant/:id/items)

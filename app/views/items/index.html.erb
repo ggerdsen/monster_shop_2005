@@ -7,7 +7,7 @@
 <p align="center">Current Discounts: </p>
 <% if !@discounts.nil? %>
   <% @discounts.each do |discount|%>
-    <p align="center"><%= "#{discount.title} #{discount.percent_discount.to_i}% off a group of like items when you purchase #{discount.minimum_item_quantity}!" %> </p>
+    <p align="center"><%= "#{discount.title} #{discount.percent_discount.to_i}% off a group of like items when you purchase #{discount.minimum_item_quantity} or more!" %> </p>
   <% end %>
 <% end %>
 <section class="grid-container">
