@@ -7,8 +7,8 @@
     <%= @merchant.zip %>
   </section>
   
-<p><%= link_to "My Items", "/merchant/items" %></p>
-<p><%= link_to "Set My Discounts", "/merchant/bulk_discounts" %></p>
+<p> <%= link_to "My Items", "/merchant/items" %> </p>
+<p> <%= link_to "Set My Discounts", "/merchant/bulk_discounts" %> </p>
 
 <h3>Pending Orders:</h3>
 <% @merchant.pending_orders.each do |order| %>

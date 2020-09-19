@@ -22,11 +22,13 @@ RSpec.describe "As a merchant employee" do
 
   end
   
-  it "I see a link to apply bulk discounts, when I click this link I can define the discount and submit it in a form" do
+  it "I see a link to set my discounts, when I click this link I can define the discount and submit it in a form" do
   
     click_link "Set My Discounts"
     
     expect(current_path).to eq("/merchant/bulk_discounts")
+    
+    click_link "Create New Discount"
     
     expect(BulkDiscount.last).to eq(nil)
     
@@ -41,8 +43,7 @@ RSpec.describe "As a merchant employee" do
     expect(BulkDiscount.last).to_not eq(nil)
     
     visit "/merchants/#{@meg.id}/items"
+
     expect(page).to have_content("Labor Day Sale! 25% off a group of like items when you purchase 5!")
-    
-    
   end
 end
