@@ -39,11 +39,11 @@ RSpec.describe "As a merchant employee" do
     click_on "Create This Discount"
     
     expect(current_path).to eq("/merchant")
-    expect(page).to have_content("Discount Saved: Labor Day Sale! 25% off of a group of like items when you purchase 5!")
+    expect(page).to have_content("Discount Saved: Labor Day Sale! 25% off of a group of like items when you purchase 5 or more!")
     expect(BulkDiscount.last).to_not eq(nil)
     
     visit "/merchants/#{@meg.id}/items"
 
-    expect(page).to have_content("Labor Day Sale! 25% off a group of like items when you purchase 5!")
+    expect(page).to have_content("Labor Day Sale! 25% off a group of like items when you purchase 5 or more!")
   end
 end

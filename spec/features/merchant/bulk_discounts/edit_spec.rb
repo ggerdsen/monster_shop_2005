@@ -62,7 +62,7 @@ RSpec.describe "As a merchant employee" do
     
     
     expect(current_path).to eq("/merchant")
-    expect(page).to have_content("Discount Updated: Edited Title! 1% off of a group of like items when you purchase 1!")
+    expect(page).to have_content("Discount Updated: Edited Title! 1% off of a group of like items when you purchase 1 or more!")
     expect(page).to have_content(BulkDiscount.last.title)
     expect(BulkDiscount.last.title).to eq("Edited Title!")
     expect(BulkDiscount.last.minimum_item_quantity).to eq(1)
@@ -71,7 +71,7 @@ RSpec.describe "As a merchant employee" do
     
     visit "/merchants/#{@meg.id}/items"
 
-    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1")
+    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1 or more!")
 
     within ".topnav" do
       click_link("Logout")
@@ -86,7 +86,7 @@ RSpec.describe "As a merchant employee" do
     click_on "Submit"
 
     visit "/merchants/#{@meg.id}/items"
-    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1")
+    expect(page).to have_content("Edited Title! 1% off a group of like items when you purchase 1 or more!")
   
   end
 end

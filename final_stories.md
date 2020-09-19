@@ -16,6 +16,14 @@ Next to each, I see a link to edit that discount
 I am taken to a form when I can update/edit my discount terms
 After my discounts are set, I see the discount terms on the (/merchant/:id/items)
 
+Final story 3
+As a merchant
+When I visit my dashboard (/merchant/dashboard), I see a link to manage discounts
+When I click this link, is see list of my current discounts
+Next to each, I see a link to delete that discount
+After clicking, my discount is destroyed
+After deleting, I no long see this discounts' terms on the (/merchant/:id/items)
+
 As a Default User
 After my discounts are set, I see the discount terms on the (/merchant/:id/items)
 When a user adds enough value or quantity of a single item to their cart, the bulk discount will automatically show up on the cart page.
