@@ -220,6 +220,34 @@ RSpec.describe "As a customer" do
     end
 
     expect(page).to have_content("Total: $116.00")
-
+  end
+  
+  it "After viewing my cart, and I see discounts applied above the new order form" do
+    
+    visit "/cart"
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to_not have_content('Discount Applied!')
+    end
+    
+    within("#item_quantity-#{@tire.id}") do
+      click_on "+"
+    end
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to have_content('"Labor Day Sale!" Discount Applied!')
+    end
+    
+    click_link "Checkout"
+    
+    within("#order-item-#{@tire.id}") do
+      expect(page).to have_content('"Labor Day Sale!" Discount Applied!')
+    end
+    within("#order-item-#{@bread.id}") do
+      expect(page).to_not have_content('"Labor Day Sale!" Discount Applied!')
+    end
+    
+    expect(page).to have_content("Total: $166")
+    
   end
 end
