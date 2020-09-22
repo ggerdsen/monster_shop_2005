@@ -32,7 +32,14 @@ class Cart
 
   def total
     @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+      item = Item.find(item_id)
+      discount = BulkDiscount.get_best(item.merchant_id, item, quantity)
+      if discount == nil
+        item.price * quantity
+      else
+        (item.price * quantity)* (0.01 * (100 - discount.percent_discount))
+      end
+        
     end
   end
 
