@@ -22,13 +22,24 @@ class Cart
     item_quantity
   end
 
-  def subtotal(item)
-    item.price * @contents[item.id.to_s]
+  def subtotal(item, discount = nil)
+    if !discount.nil?
+      (item.price * @contents[item.id.to_s]) * (0.01 * (100 - discount.percent_discount))
+    else
+      item.price * @contents[item.id.to_s]
+    end
   end
 
   def total
     @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+      item = Item.find(item_id)
+      discount = BulkDiscount.get_best(item.merchant_id, item, quantity)
+      if discount == nil
+        item.price * quantity
+      else
+        (item.price * quantity)* (0.01 * (100 - discount.percent_discount))
+      end
+        
     end
   end
 

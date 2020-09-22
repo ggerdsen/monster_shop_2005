@@ -60,7 +60,6 @@ RSpec.describe "As a merchant employee" do
     
     click_on "Submit Changes For This Discount"
     
-    
     expect(current_path).to eq("/merchant")
     expect(page).to have_content("Discount Updated: Edited Title! 1% off of a group of like items when you purchase 1 or more!")
     expect(page).to have_content(BulkDiscount.last.title)
