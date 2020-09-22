@@ -9,9 +9,6 @@ class CartController < ApplicationController
   def show
     render file: "/public/404" if current_admin?
     @items = cart.items
-    if !@items.empty? && !discount_loop(@items).nil?
-      @best_discount = BulkDiscount.find(discount_loop(@items).to_s)
-    end
     if !current_user
       flash.now[:notice] = "You must #{view_context.link_to 'Register', '/register'} or #{view_context.link_to 'Login', '/login'} in order to checkout".html_safe
     end
@@ -36,15 +33,5 @@ class CartController < ApplicationController
     end
     redirect_to '/cart'
   end
-  
-  private
-  
-  def discount_loop(items)
-    @best_discount = []
-    items.map do |item|
-      item = Item.find(item.first.id)
-      merchant = Merchant.find(item.merchant_id)
-      @best_discount << BulkDiscount.get_best(merchant.id, item, cart.contents[item.id.to_s])
-    end.flatten.compact.first
-  end
+
 end
