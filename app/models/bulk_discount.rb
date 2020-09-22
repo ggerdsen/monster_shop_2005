@@ -16,7 +16,7 @@ class BulkDiscount < ApplicationRecord
       end
     end
     if !@savings.empty?
-      @savings.max_by{|k,v| v}.first
+      BulkDiscount.find(@savings.max_by{|k,v| v}.first)
     end
   end
   
