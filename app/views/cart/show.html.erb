@@ -39,7 +39,17 @@
         </center>
         </td>
       <td>
-        <p><%=number_to_currency(cart.subtotal(item))%></p>
+      <section id='item_subtotal-<%= item.id%>'>
+        <% binding.pry %>
+        <% if @best_discount.class == Array %>
+          <p><%=number_to_currency(cart.subtotal(item))%></p>
+        <% elsif cart.contents[item.id.to_s] >= @best_discount.minimum_item_quantity && item.merchant_id == @best_discount.merchant_id %>
+          <p> "<%= @best_discount.title %>" Discount Applied!</p>
+          <p><%=number_to_currency(cart.subtotal(item, @best_discount))%></p>
+        <% else %>
+          <p><%=number_to_currency(cart.subtotal(item))%></p>
+        <% end %>
+      </section>
     </td>
     </tr>
   <% end %>

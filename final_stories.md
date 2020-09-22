@@ -26,12 +26,12 @@ After deleting, I no long see this discounts' terms on the (/merchant/:id/items)
 
 Final story 4
 As a customer
-When I visit a merchants item index (/merchants/:id/items), I available discounts
+When I visit a merchants item index (/merchants/:id/items), I see available discounts
 When I follow the criteria for this link, is see the discount applied to my order
 
 As a Default User
 After my discounts are set, I see the discount terms on the (/merchant/:id/items)
-When a user adds enough value or quantity of a single item to their cart, the bulk discount will automatically show up on the cart page.
+When a user adds enough of a single item to their cart, the bulk discount will automatically show up on the cart page.
 When there is a conflict between two discounts, the greater of the two will be applied.
 
 Final discounted prices should appear on the orders show page.
