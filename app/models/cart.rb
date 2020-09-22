@@ -61,13 +61,24 @@ class Cart
 
   def modify(order)
     items.each do |item,quantity|
+      discount = BulkDiscount.get_best(item.merchant_id, item, quantity)
       item.modify_item_inventory(item, quantity, :decrease)
-      order.item_orders.create({
-        item: item,
-        quantity: quantity,
-        price: item.price,
-        status: "unfulfilled"
-        })
+      if discount == nil
+        order.item_orders.create({
+            item: item,
+            quantity: quantity,
+            price: item.price,
+            status: "unfulfilled"
+            })
+      else
+        discounted_price = item.price * (0.01 * (100 - discount.percent_discount))
+        order.item_orders.create({
+            item: item,
+            quantity: quantity,
+            price: discounted_price,
+            status: "unfulfilled"
+            })
+      end
     end
   end
 end

@@ -250,4 +250,38 @@ RSpec.describe "As a customer" do
     expect(page).to have_content("Total: $166")
     
   end
+  
+  it "On the new orders page, I click create order and i see my discounted grand total on my orders page"do
+    
+    visit "/cart"
+    
+    within("#item_quantity-#{@tire.id}") do
+      click_on "+"
+    end
+    
+    click_on "Checkout"
+    
+    expect(current_path).to eq("/orders/new")
+    
+    expect(page).to have_content("Total: $166")
+    
+    fill_in :name, with: "Garrett Gerdsen"
+    fill_in :address, with: "2 Real Rd."
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zip, with: "12345"
+    
+    click_on "Create Order"
+    
+    expect(current_path).to eq("/profile/orders")
+    
+    expect(page).to have_content("Grand Total of Order: $166.00")
+    
+    order = Order.last
+    
+    visit "/orders/#{order.id}"
+    
+    expect(page).to have_content("Total: $166.00")
+    
+  end
 end
