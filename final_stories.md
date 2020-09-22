@@ -33,10 +33,15 @@ The name of the discount(s) is shown in the subtotal column along with the adjus
 The total reflects the discounts applied in the subtotal column
 
 Final story 5 [x]
-As a customer, after click checkout on the cart show page (/cart), I see the adjusted prices in my orders new page.
+As a customer
+After click checkout on the cart show page (/cart), I see the adjusted prices in my orders new form page (/orders/new).
 The total and subtotals all reflect the discounted price.
 
-Final discounted prices should appear on the orders show page.
+Final story 6 [x]
+As a customer
+Now that my new order form page shows my discounted totals, I create an order.
+On my profile's order show page (/profile/orders) I see my Discounted Grant Total.
+I next vist my order show page (/orders/:id) and I see the updated total.
 
 bulk_discounts
 merchant:refernces
