@@ -139,75 +139,81 @@ RSpec.describe "As a customer" do
     within("#item_subtotal-#{@tire.id}") do
       expect(page).to_not have_content('Discount Applied!')
     end
-    #
-    # #1st Discount
-    # within("#item_quantity-#{@tire.id}") do
-    #   click_on "+"
-    # end
-    #
-    # within("#item_subtotal-#{@tire.id}") do
-    #   expect(page).to have_content('"Labor Day Sale!" Discount Applied!')
-    # end
-    #
-    # within("#item_subtotal-#{@bread.id}") do
-    #   expect(page).to_not have_content('"Labor Day Sale!" Discount Applied!')
-    # end
-    #
-    # #2nd Discount
-    # within("#item_quantity-#{@tire.id}") do
-    #   click_on "+"
-    # end
-    #
-    # within("#item_subtotal-#{@tire.id}") do
-    #   expect(page).to have_content('"Anniversary Sale!" Discount Applied!')
-    # end
-    #
-    # within("#item_subtotal-#{@bread.id}") do
-    #   expect(page).to_not have_content('"Anniversary Sale" Discount Applied!')
-    # end
-    #
-    # # 3rd Discount
-    # within("#item_quantity-#{@tire.id}") do
-    #   click_on "+"
-    #   click_on "+"
-    # end
-    #
-    # within("#item_subtotal-#{@tire.id}") do
-    #   expect(page).to have_content('"Blowout Sale!')
-    # end
-    #
-    # within("#item_subtotal-#{@bread.id}") do
-    #   expect(page).to_not have_content('"Blowout Sale!')
-    # end
+    
+    #1st Discount
+    within("#item_quantity-#{@tire.id}") do
+      click_on "+"
+    end
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to have_content('"Labor Day Sale!" Discount Applied!')
+    end
+    
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to_not have_content('"Labor Day Sale!" Discount Applied!')
+    end
+    
+    #2nd Discount
+    within("#item_quantity-#{@tire.id}") do
+      click_on "+"
+    end
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to have_content('"Anniversary Sale!" Discount Applied!')
+    end
+    
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to_not have_content('"Anniversary Sale" Discount Applied!')
+    end
+    
+    # 3rd Discount
+    within("#item_quantity-#{@tire.id}") do
+      click_on "+"
+      click_on "+"
+    end
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to have_content('"Blowout Sale!')
+    end
+    
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to_not have_content('"Blowout Sale!')
+    end
     
     # 4th Discount
-    #
-    # within("#item_subtotal-#{@bread.id}") do
-    #   expect(page).to_not have_content("Mike's Bakery Opening!")
-    # end
-    #
-    # within("#item_quantity-#{@bread.id}") do
-    #   click_on "+"
-    #   click_on "+"
-    # end
-    # save_and_open_page
-    # within("#item_subtotal-#{@bread.id}") do
-    #   expect(page).to have_content("Mike's Bakery Opening!")
-    # end
     
-    # within("#item_quantity-#{@pencil.id}") do
-    #   # click_on "+"
-    #   # click_on "+"
-    #   # click_on "+"
-    #   # click_on "+"
-    # end
-    #
-    #
-    #
-    #
-    #
-    #
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to_not have_content("Mike's Bakery Opening!")
+    end
+    
+    within("#item_quantity-#{@bread.id}") do
+      click_on "+"
+      click_on "+"
+    end
 
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to have_content("Mike's Bakery Opening!")
+    end
+    
+    within("#item_quantity-#{@bread.id}") do
+      click_on "-"
+      click_on "-"
+    end
+    
+    within("#item_subtotal-#{@bread.id}") do
+      expect(page).to_not have_content("Mike's Bakery Opening!")
+    end
+    
+    within("#item_quantity-#{@tire.id}") do
+      click_on "-"
+      click_on "-"
+      click_on "-"
+      click_on "-"
+    end
+    
+    within("#item_subtotal-#{@tire.id}") do
+      expect(page).to_not have_content('"Blowout Sale!')
+    end
 
 
   end
