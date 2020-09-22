@@ -180,6 +180,8 @@ RSpec.describe "As a customer" do
       expect(page).to_not have_content('"Blowout Sale!')
     end
     
+    expect(page).to have_content("Total: $21.00")
+    
     # 4th Discount
     
     within("#item_subtotal-#{@bread.id}") do
@@ -194,6 +196,8 @@ RSpec.describe "As a customer" do
     within("#item_subtotal-#{@bread.id}") do
       expect(page).to have_content("Mike's Bakery Opening!")
     end
+
+    expect(page).to have_content("Total: $23.00")
     
     within("#item_quantity-#{@bread.id}") do
       click_on "-"
@@ -215,6 +219,7 @@ RSpec.describe "As a customer" do
       expect(page).to_not have_content('"Blowout Sale!')
     end
 
+    expect(page).to have_content("Total: $116.00")
 
   end
 end
