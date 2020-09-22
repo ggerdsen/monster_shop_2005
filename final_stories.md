@@ -28,14 +28,13 @@ Final story 4 [x]
 As a customer
 After discounts are set, I see the discount terms on the (/merchant/:id/items)
 When I add enough of a single item to their cart, the bulk discount will automatically show up on the cart show page.
-The name of the discount(s) is show in the subtotal column along with the adjusted price(s)
+When there is a conflict between two discounts, the greater of the two will be applied.
+The name of the discount(s) is shown in the subtotal column along with the adjusted price(s)
 The total reflects the discounts applied in the subtotal column
 
-As a Default User
-
-When there is a conflict between two discounts, the greater of the two will be applied.
-
-Final story 5
+Final story 5 [x]
+As a customer, after click checkout on the cart show page (/cart), I see the adjusted prices in my orders new page.
+The total and subtotals all reflect the discounted price.
 
 Final discounted prices should appear on the orders show page.
 
