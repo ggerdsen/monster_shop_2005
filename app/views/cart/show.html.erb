@@ -32,7 +32,7 @@
         <center>
           <section id='item_quantity-<%= item.id%>'>
             <%= link_to "+", "/cart/add/#{item.id}", method: :patch %>
-            <%=quantity%>
+            <%= quantity %>
             <%= link_to "-", "/cart/subtract/#{item.id}", method: :patch %>
             <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
           </section>
@@ -40,14 +40,12 @@
         </td>
       <td>
       <section id='item_subtotal-<%= item.id%>'>
-        <% binding.pry %>
-        <% if @best_discount.class == Array %>
+        <% discount = BulkDiscount.get_best(item.merchant_id, item, cart.contents[item.id.to_s]) %>
+        <% if discount == nil %>
           <p><%=number_to_currency(cart.subtotal(item))%></p>
-        <% elsif cart.contents[item.id.to_s] >= @best_discount.minimum_item_quantity && item.merchant_id == @best_discount.merchant_id %>
-          <p> "<%= @best_discount.title %>" Discount Applied!</p>
-          <p><%=number_to_currency(cart.subtotal(item, @best_discount))%></p>
         <% else %>
-          <p><%=number_to_currency(cart.subtotal(item))%></p>
+          <p> "<%= discount.title %>" Discount Applied!</p>
+          <p><%=number_to_currency(cart.subtotal(item, discount))%></p>
         <% end %>
       </section>
     </td>
