@@ -32,6 +32,12 @@ RSpec.describe "As a merchant employee" do
     
     expect(BulkDiscount.last).to eq(nil)
     
+    fill_in :title, with: "as"
+    fill_in :minimum_item_quantity, with: ""
+    fill_in :percent_discount, with: ""
+    
+    click_on "Create This Discount"
+    
     fill_in :title, with: "Labor Day Sale!"
     fill_in :minimum_item_quantity, with: "5"
     fill_in :percent_discount, with: "25"

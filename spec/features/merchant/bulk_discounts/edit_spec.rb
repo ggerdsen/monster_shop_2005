@@ -54,6 +54,13 @@ RSpec.describe "As a merchant employee" do
     
     expect(current_path).to eq("/merchant/bulk_discounts/#{BulkDiscount.last.id}/edit")
     
+    
+    fill_in :title, with: " "
+    fill_in :minimum_item_quantity, with: " "
+    fill_in :percent_discount, with: " "
+    
+    click_on "Submit Changes For This Discount"
+
     fill_in :title, with: "Edited Title!"
     fill_in :minimum_item_quantity, with: "1"
     fill_in :percent_discount, with: "1"
