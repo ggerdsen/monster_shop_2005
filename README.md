@@ -2,14 +2,11 @@
 ### BE Mod 2 Week 4/5 Group Project
 
 #### [Heroku Deployment](https://monstershop2006.herokuapp.com/)
-#### [Github Repo](https://github.com/Callbritton/monster_shop_2005/)
+#### [Github Repo](https://github.com/ggerdsen/monster_shop_2005/)
 
 ### Development Team
 
-#### [Drew Williams](https://github.com/drewwilliams5280)
 #### [Garrett Gerdsen](https://github.com/ggerdsen)
-#### [James Belta](https://github.com/JBelta)
-#### [Chris Allbritton](https://github.com/Callbritton)
 
 ## Background and Description
 
@@ -26,7 +23,7 @@ This project requires Ruby 2.5.3.
     * `rails db:create`
     * `rails db:migrate`
     * `rails db:seed`
-* Run the test suite with `bundle exec rspec`. 
+* Run the test suite with `bundle exec rspec`.
 * Run your development server with `rails s`. Visit [localhost:3000/merchants](http://localhost:3000/merchants) to see the app in action.
 
 ## Schema

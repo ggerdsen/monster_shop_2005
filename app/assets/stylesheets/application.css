@@ -15,7 +15,7 @@
  */
 
  body {
- background-color: white;
+ background-color: rgb(167, 236, 242);
  }
 
  h1 {
@@ -85,7 +85,7 @@ section[id*='review'] {
 
  .topnav {
    overflow: hidden;
-   background-color: #002244;
+   background-color: #3e9cbf;
  }
 
  .topnav a {
@@ -118,7 +118,7 @@ section[id*='review'] {
 
 input[type=submit] {
   width: 100%;
-  background-color: #17BEBB;
+  background-color: #b08e2c;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -128,11 +128,11 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #743b1a;
 }
 form {
   align-content: center;
-  background-color: #f2f2f2;
+  background-color: #f26d50;
   padding: 20px;
   width: 60%;
 }
