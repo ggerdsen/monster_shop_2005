@@ -77,9 +77,9 @@ RSpec.describe "As a registered user, when I visit my Profile Orders page" do
     expect(page).to have_content(@order_1.id)
     expect(page).to have_content(@order_1.created_at)
     expect(page).to have_content(@order_1.updated_at)
-    expect(page).to have_content(@order_1.approved?)
+    expect(page).to have_content(@order_1.status)
     expect(page).to have_content(@order_1.grandtotal)
-    expect(page).to have_content(@order_1.approved?)
+    expect(page).to have_content(@order_1.status)
     expect(page).to have_content(@order_1.created_at)
     expect(page).to have_content(@order_1.updated_at)
   end
