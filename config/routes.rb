@@ -1,33 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  namespace :admin do
-    get '/', to: 'dashboard#index'
-    resources :merchants, only: [:index, :show, :update]
-    resources :users, only: [:index, :show]
-    get '/users/:id/orders', to: 'orders#index'
-    get '/users/:user_id/orders/:order_id', to: 'orders#show'
-  end
-
-  namespace :merchant do
-    resources :items, only: [:index, :show, :create, :new]
-    resources :orders, only: [:show, :update]
-
-    get "/bulk_discounts/new", to: "bulk_discounts#new"
-    get "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#edit"
-    patch "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#update"
-    delete "/bulk_discounts/:discount_id/delete", to: "bulk_discounts#destroy"
-    get "/bulk_discounts/", to: "bulk_discounts#index"
-    post "/bulk_discounts", to: "bulk_discounts#create"
-    
-    get '/', to: "dashboard#index"
-    post '/items/new', to: "/merchant/items#new"
-    patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
-    patch "/items/:id", to: "items#update_activation"
-    delete "/items/:id", to: "items#destroy"
-    get "/items/:item_id/edit", to: "items#edit"
-    patch "/items/:item_id/edit", to: "items#update"
-  end
+  get "/", to: "home#index"
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
@@ -78,6 +52,33 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+  
+  namespace :admin do
+    resources :merchants, only: [:index, :show, :update]
+    resources :users, only: [:index, :show]
+    
+    get '/', to: 'dashboard#index'
+    get '/users/:id/orders', to: 'orders#index'
+    get '/users/:user_id/orders/:order_id', to: 'orders#show'
+  end
 
-  get "/", to: "home#index"
+  namespace :merchant do
+    resources :items, only: [:index, :show, :create, :new]
+    resources :orders, only: [:show, :update]
+
+    get "/bulk_discounts/new", to: "bulk_discounts#new"
+    get "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#edit"
+    patch "/bulk_discounts/:discount_id/edit", to: "bulk_discounts#update"
+    delete "/bulk_discounts/:discount_id/delete", to: "bulk_discounts#destroy"
+    get "/bulk_discounts/", to: "bulk_discounts#index"
+    post "/bulk_discounts", to: "bulk_discounts#create"
+    
+    get '/', to: "dashboard#index"
+    post '/items/new', to: "/merchant/items#new"
+    patch "/orders/:order_id/items/:item_id/update", to: "orders#update"
+    patch "/items/:id", to: "items#update_activation"
+    delete "/items/:id", to: "items#destroy"
+    get "/items/:item_id/edit", to: "items#edit"
+    patch "/items/:item_id/edit", to: "items#update"
+  end
 end
